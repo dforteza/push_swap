@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/18 17:08:07 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/18 17:29:51 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,7 @@ void				rotate(t_node **stack);
 void				reverse_rotate(t_node **stack);
 void				push(t_node **src, t_node **dest);
 
-#endif  
+// FLAGS
+int					parse_flags(int argc, char **argv, t_ps *ps);
+
+#endif
