@@ -1,0 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
+/*   Updated: 2026/09/18 17:08:07 by difortez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# define SIMPLE 0
+# define MEDIUM 1
+# define COMPLEX 2
+# define ADAPTIVE 3
+
+# define SA 0
+# define SB 1
+# define SS 2
+# define PA 3
+# define PB 4
+# define RA 5
+# define RB 6
+# define RR 7
+# define RRA 8
+# define RRB 9
+# define RRR 10
+# define N_OPS 11
+
+# include "libft.h"
+
+typedef struct s_node
+{
+	int				value;
+	int				index;
+	struct s_node	*next;
+}					t_node;
+
+typedef struct s_ps
+{
+	t_node			*a;
+	t_node			*b;
+	int				strategy;
+	int				bench;
+	int				count[N_OPS];
+
+}					t_ps;
+
+// OPERATIONS
+void				sa(t_ps *ps);
+void				sb(t_ps *ps);
+void				ss(t_ps *ps);
+
+void				pa(t_ps *ps);
+void				pb(t_ps *ps);
+
+void				ra(t_ps *ps);
+void				rb(t_ps *ps);
+void				rr(t_ps *ps);
+
+void				rra(t_ps *ps);
+void				rrb(t_ps *ps);
+void				rrr(t_ps *ps);
+
+// MOVEMENTS
+void				swap(t_node **stack);
+void				rotate(t_node **stack);
+void				reverse_rotate(t_node **stack);
+void				push(t_node **src, t_node **dest);
+
+#endif  
