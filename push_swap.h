@@ -6,13 +6,14 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/18 17:29:51 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/19 13:28:38 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# define NONE -1
 # define SIMPLE 0
 # define MEDIUM 1
 # define COMPLEX 2
