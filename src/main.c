@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:10:01 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/21 15:47:12 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/21 17:45:08 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	main(int ac, char **av)
 	if (i == -1)
 		error_exit(&ps, NULL);
 	parse_numbers(&ps, ac, av, i);
+	normalize(&ps);
+	if (is_sorted(ps.a))
+	{
+		free_stack(ps.a);
+		return (0);
+	}
 	free_stack(ps.a);
 	return (0);
 }

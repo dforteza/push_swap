@@ -77,6 +77,9 @@ void				push(t_node **src, t_node **dest);
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
 
+// STACK
+int					is_sorted(t_node *a);
+
 // PARSING
 void				parse_numbers(t_ps *ps, int ac, char **av, int i);
 
