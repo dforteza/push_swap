@@ -28,8 +28,8 @@
 |---|---|---|---|---|
 | mié 16 | Lectura del subject | — | — | ✅ |
 | jue 17 | Análisis + diseño | — | — | ✅ (terminado el vie 18) |
-| vie 18 | Fin del diseño + repo, `.gitignore`, libft, Makefile, `.h` (structs, prototipos, reparto de ficheros) | — | — | 🟨 |
-| sáb 19 | Colchón | (si hace falta) | (si hace falta) | ⬜ |
+| vie 18 | Fin del diseño + repo, `.gitignore`, libft, Makefile, `.h` (structs, prototipos, reparto de ficheros) | Flags: diseño + esqueleto de `flags.c` | — | ✅ |
+| sáb 19 | Colchón | Programar y probar `flags.c` → empezar parseo | (si hace falta) | ⬜ |
 | dom 20 | Colchón | (si hace falta) | (si hace falta) | ⬜ |
 | lun 21 | — | Flags + parseo + errores + construir `a` + liberar en error | Funciones internas + 11 operaciones con contadores, probadas una a una | ⬜ |
 | mar 22 | Revisar y mergear lo del lun 21 | Normalizar + desorden + `--simple` | Camino corto + casos pequeños 2-5 | ⬜ |
@@ -74,14 +74,14 @@ Estados: ⬜ pendiente · 🟨 en curso · ✅ hecho · 🟥 retrasado
 - [x] Flujo de git en pareja (ramas, quién mergea) (decisión 20)
 
 ### 3. Base
-- [ ] [Juntos] Repo git + `.gitignore`
-- [ ] [Juntos] `libft/` copiada con su Makefile
-- [ ] [Juntos] Makefile (skill `/makefile-42`): compila libft primero, sin relink
-- [ ] [Juntos] `.h` con structs y prototipos (nombres de las 11 operaciones y funciones internas pactados)
-- [ ] [Juntos] Reparto de ficheros (máx. 5 funciones por fichero, 25 líneas)
-- [ ] [Juntos] ¿PLAN.md va en el repo?
-- [ ] [A] Lectura de flags (decisión 6)
-- [ ] [A] Parseo con `ft_split` + conversión + detección de errores (decisiones 3-5)
+- [x] [Juntos] Repo git + `.gitignore`
+- [x] [Juntos] `libft/` copiada con su Makefile
+- [x] [Juntos] Makefile (skill `/makefile-42`): compila libft primero, sin relink
+- [x] [Juntos] `.h` con structs y prototipos (nombres de las 11 operaciones y funciones internas pactados)
+- [x] [Juntos] Reparto de ficheros (máx. 5 funciones por fichero, 25 líneas)
+- [x] [Juntos] ¿PLAN.md va en el repo? → sí, `PLAN.md` y `tests/` dentro de git; quitarlos antes de vogsphere
+- [x] [A] Lectura de flags (decisión 6) → rama `feat/flags` (cc484c0), 6 casos probados
+- [ ] [A] Parseo con `ft_split` + conversión + detección de errores (decisiones 3-5) → 🟨 `is_valid` y `to_long` hechas; `parse_numbers` en borrador
 - [ ] [A] Construir la pila `a` (el primer argumento arriba)
 - [ ] [A] Liberar todo y salir con `Error` (decisión 15), valgrind limpio también en error
 - [ ] [A] Normalizar a índices (decisión 8)
@@ -202,7 +202,21 @@ Plantilla (copiar arriba del todo cada día):
 - ¿Voy en plazo?: sí / no → ajuste:
 ```
 
-### 18-09-2026 · Fase: Diseño · Horas: _
+### 19-09-2026 · Fase: Base · Horas: _
+- Hecho: `flags.c` programado y probado con los 6 casos (norminette OK), commit `cc484c0` en `feat/flags`. Mapa del `main` escrito como comentario en `main.c`: 1) procesar flags, 2) parsear números (incluye: < 2 números o ya ordenados → salir sin imprimir), 3) normalizar, 4) calcular desorden, 5) elegir algoritmo, 6) ordenar, 7) si bench → sacar info, 8) liberar y cerrar. En `parse.c`: `is_valid` (signo opcional + al menos un dígito + solo dígitos) y `to_long` (convierte en `long` y corta en cuanto pasa de 2147483648, así el `long` no desborda). Decidido: `void parse_numbers(t_ps *ps, int ac, char **av, int i)`; los errores llaman a `error_exit(ps, split)` (libera el split en curso y la pila, `Error\n` por stderr, `exit`; `NULL` si no hay split).
+- Método: de arriba abajo. Primero la función grande (pseudocódigo + recorrerla con un ejemplo real) y luego las pequeñas.
+- Bloqueos / dudas: `!` con `ft_strncmp` (→ escribir comparaciones largas, `== 0` / `== 1`). `parse_numbers` en borrador con fallos: `t_ps ps` → `t_ps *ps`, `ft_split(av)` → `av[i]`, falta `i++`, falta liberar el split, falta el caso vacío (`nums[0] == NULL`), sobran los `return` tras el error. `ft_lstadd_back` no sirve (`t_list` ≠ `t_node`).
+- Mañana: arreglar `parse_numbers` → `add_node` (nodo nuevo al final de `a`, avisa si falla `malloc`) → `is_duplicate` → `error_exit` + liberar pila. Norma: sacar el bucle de dentro a `parse_word` (> 25 líneas) y `add_node` / liberar pila a otro fichero (¿`stack.c`?). En `main`: < 2 números o ya ordenados → salir. Quitar `printf`/`stdio.h` de prueba antes de mergear. `git push` de `feat/flags`.
+- ¿Voy en plazo?: sí → flags terminado y parseo empezado dentro del colchón del sáb 19.
+
+### 18-09-2026 (tarde) · Fase: Base · Horas: _
+- Hecho: repo `dforteza/push_swap` creado y clonado; `.gitignore` (plantilla C + push_swap, checker_linux, PDF); borrados `prueba*`, `checker_Mac`, `fedora_checker`. libft copiada (`CC = cc`). Makefile (libft primero con regla `$(LIBFT)`, `-I. -Ilibft`, sin relink, comprobado). `push_swap.h`: `t_node` (value, index, next), `t_ps` (a, b, strategy, bench, count[N_OPS]), `#define` de estrategias y de las 11 operaciones, prototipos de las 11 operaciones (`t_ps *ps`) y de las 4 internas (`t_node **stack`, `push(src, dest)`). Reparto de ficheros en `src/` (A: main, flags, parse, error, normalize, disorder, simple, medium · B: moves, ops_swap_push, ops_rotate, ops_reverse, small_sort, radix, linear · Juntos: adaptive, bench). `main` mínimo compila. Rama `feat/flags`: diseño de flags (devuelve el índice del primer número; comparar `ft_strlen(flag) + 1`; `NONE = -1`; error → `-1` y `main` escribe `Error`) y esqueleto de `flags.c` con 4 funciones descritas.
+- Conceptos aclarados: `-I` (buscar `.h`) frente a `-L`/`-l` (enlazar `.a`); incluir (prototipos) frente a enlazar (código); por qué `t_node **` en las internas; `cc` exigido por el subject.
+- Bloqueos / dudas: espacios en vez de tabuladores (norminette) → `c_formatter_42` o configurar el editor. `main.c`: línea vacía en la función y falta salto al final.
+- Mañana (sáb 19, colchón): programar y probar `flags.c` con los 6 casos, iniciar `ps` en `main` (`ft_bzero` + `strategy = NONE`), luego parseo.
+- ¿Voy en plazo?: sí → la base conjunta quedó cerrada hoy; se usa el sáb 19 para adelantar A.
+
+### 18-09-2026 (mañana) · Fase: Diseño · Horas: _
 - Hecho: O(n) cerrado (decisión 17): conteo de errores, cota 0,1·n², argumento del palomar (11^k listas, familia de 5 bloques) → O(n) no garantizable para todo desorden < 0,2; algoritmo de una vuelta `sa`/`ra` con comprobación previa y fallback a chunks. Casos pequeños 2, 4 y 5 (decisión 18). Umbrales (decisión 19). Reparto y git (decisión 20): yo A, compañera B, quicksort juntos.
 - Bloqueos / dudas:
 - Mañana:

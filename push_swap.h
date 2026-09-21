@@ -6,13 +6,14 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/18 17:08:07 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/20 13:38:18 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# define NONE -1
 # define SIMPLE 0
 # define MEDIUM 1
 # define COMPLEX 2
@@ -32,6 +33,7 @@
 # define N_OPS 11
 
 # include "libft.h"
+# include <limits.h>
 
 typedef struct s_node
 {
@@ -72,4 +74,15 @@ void				rotate(t_node **stack);
 void				reverse_rotate(t_node **stack);
 void				push(t_node **src, t_node **dest);
 
-#endif  
+// FLAGS
+int					parse_flags(int argc, char **argv, t_ps *ps);
+
+// PARSING
+void				parse_numbers(t_ps *ps, int ac, char **av, int i);
+
+// ERRORS
+void				free_split(char **nums);
+void				free_stack(t_node *stack);
+void				error_exit(t_ps *ps, char **nums);
+
+#endif
