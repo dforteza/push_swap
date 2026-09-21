@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 /**
 1. PROCESAR FLAGS
@@ -25,25 +24,15 @@
  */
 int	main(int ac, char **av)
 {
-	t_ps ps;
-	t_node	*tmp;
+	t_ps	ps;
+	int		i;
 
 	ft_bzero(&ps, sizeof(ps));
 	ps.strategy = NONE;
-	int i = parse_flags(ac, av, &ps);
+	i = parse_flags(ac, av, &ps);
 	if (i == -1)
 		error_exit(&ps, NULL);
 	parse_numbers(&ps, ac, av, i);
-
-	tmp = ps.a;
-	while (tmp)
-	{
-		printf("%d\n", tmp->value);
-		tmp = tmp->next;
-	}
-
-	
-	printf("i: %d || strategy: %d, bench : %d", i, ps.strategy, ps.bench);
 	free_stack(ps.a);
 	return (0);
 }
