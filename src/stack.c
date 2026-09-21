@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   normalize.c                                        :+:      :+:    :+:   */
+/*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/18 17:15:11 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/21 17:24:05 by difortez         ###   ########.fr       */
+/*   Created: 2026/09/21 17:34:44 by difortez          #+#    #+#             */
+/*   Updated: 2026/09/21 17:42:41 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 /*
-** Rellena el campo index de cada nodo con su posicion en la lista
-** ordenada: el menor recibe 0 y el mayor n-1. El indice de un nodo es
-** cuantos valores hay menores que el. No mueve ningun nodo.
+** Devuelve 1 si la pila esta ordenada de menor a mayor por index.
+** Una pila vacia o de un solo nodo cuenta como ordenada.
 */
-void	normalize(t_ps *ps)
+int	is_sorted(t_node *a)
 {
-	t_node	*i;
-	t_node	*j;
-	int		c;
-
-	if (!ps)
-		return ;
-	i = ps->a;
-	while (i)
+	while (a && a->next)
 	{
-		c = 0;
-		j = ps->a;
-		while (j)
-		{
-			if (j->value < i->value)
-				c++;
-			j = j->next;
-		}
-		i->index = c;
-		i = i->next;
+		if (a->index > a->next->index)
+			return (0);
+		a = a->next;
 	}
+	return (1);
 }

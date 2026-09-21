@@ -6,7 +6,7 @@ RM		= rm -f
 
 LIBFT	= libft/libft.a
 
-SRCS	= src/main.c src/flags.c src/parse.c src/error.c
+SRCS	= src/main.c src/flags.c src/parse.c src/error.c src/normalize.c src/stack.c src/disorder.c
 
 OBJS	= $(SRCS:.c=.o)
 

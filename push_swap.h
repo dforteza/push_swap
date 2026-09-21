@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/20 13:38:18 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/21 17:21:56 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_ps
 	int				strategy;
 	int				bench;
 	int				count[N_OPS];
+	double			disorder;
 
 }					t_ps;
 
@@ -77,6 +78,9 @@ void				push(t_node **src, t_node **dest);
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
 
+// STACK
+int					is_sorted(t_node *a);
+
 // PARSING
 void				parse_numbers(t_ps *ps, int ac, char **av, int i);
 
@@ -84,5 +88,11 @@ void				parse_numbers(t_ps *ps, int ac, char **av, int i);
 void				free_split(char **nums);
 void				free_stack(t_node *stack);
 void				error_exit(t_ps *ps, char **nums);
+
+// NORMALICE
+void				normalize(t_ps *ps);
+
+// DISORDER
+double				compute_disorder(t_node *a);
 
 #endif
