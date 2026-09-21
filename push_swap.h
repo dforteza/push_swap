@@ -49,6 +49,7 @@ typedef struct s_ps
 	int				strategy;
 	int				bench;
 	int				count[N_OPS];
+	double			disorder;
 
 }					t_ps;
 
@@ -90,5 +91,8 @@ void				error_exit(t_ps *ps, char **nums);
 
 // NORMALICE
 void				normalize(t_ps *ps);
+
+// DISORDER
+double				compute_disorder(t_node *a);
 
 #endif

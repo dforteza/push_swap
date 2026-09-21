@@ -6,11 +6,12 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:10:01 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/21 17:45:08 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/21 18:02:26 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 /**
 1. PROCESAR FLAGS
@@ -39,6 +40,9 @@ int	main(int ac, char **av)
 		free_stack(ps.a);
 		return (0);
 	}
+	ps.disorder = compute_disorder(ps.a);
+
+	printf("DESORDEN: %f\n", ps.disorder);
 	free_stack(ps.a);
 	return (0);
 }

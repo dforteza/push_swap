@@ -6,7 +6,40 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:15:09 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/18 17:15:10 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/21 17:55:57 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
+/*
+** Devuelve el indice de desorden: cuantos pares estan mal ordenados
+** entre el total de pares posibles. Vale 0 si la pila esta ordenada y
+** 1 si esta del todo al reves. Con menos de 2 nodos no hay pares.
+*/
+double	compute_disorder(t_node *a)
+{
+	t_node	*i;
+	t_node	*j;
+	int		mistakes;
+	int		total;
+
+	mistakes = 0;
+	total = 0;
+	i = a;
+	while (i)
+	{
+		j = i->next;
+		while (j)
+		{
+			total++;
+			if (i->index > j->index)
+				mistakes++;
+			j = j->next;
+		}
+		i = i->next;
+	}
+	if (total == 0)
+		return (0.0);
+	return ((double)mistakes / (double)total);
+}
