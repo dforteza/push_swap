@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/20 13:38:18 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/21 17:21:56 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,8 @@ void				parse_numbers(t_ps *ps, int ac, char **av, int i);
 void				free_split(char **nums);
 void				free_stack(t_node *stack);
 void				error_exit(t_ps *ps, char **nums);
+
+// NORMALICE
+void				normalize(t_ps *ps);
 
 #endif
