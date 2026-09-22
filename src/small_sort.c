@@ -6,7 +6,7 @@
 /*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 22:50:00 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/22 17:24:15 by beatrizdoca      ###   ########.fr       */
+/*   Updated: 2026/09/22 17:25:40 by beatrizdoca      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	sort_three(t_ps *ps)
 		ra(ps);
 	else if (ps->a->next->index == max)
 		rra(ps);
-	//tengo que considerar que eso cambia los valores
 	if (ps->a->index > ps->a->next->index)
 		sa(ps);
 }
