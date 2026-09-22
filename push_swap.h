@@ -80,18 +80,17 @@ void				log_op(t_ps *ps, char *name, int op);
 // SELECTION SORT (--simple)
 void				selection_sort(t_ps *ps);
 
-// SMALL SORT (de Beatriz, aun sin mergear)
-void				small_sort(t_ps *ps);
-int					find_min(t_node *stack);
-int					find_place(t_node *stack, int n);
-int					find_size(t_node *stack);
-
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
 
 // STACK
 int					is_sorted(t_node *a);
 int					has_two(t_node *stack);
+int					find_size(t_node *stack);
+int					find_min(t_node *stack);
+int					find_max(t_node *stack);
+int					find_place(t_node *stack, int n);
+t_node				*find_last(t_node *stack);
 
 // PARSING
 void				parse_numbers(t_ps *ps, int ac, char **av, int i);
