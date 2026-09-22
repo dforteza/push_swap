@@ -6,7 +6,10 @@ RM		= rm -f
 
 LIBFT	= libft/libft.a
 
-SRCS	= src/main.c src/flags.c src/parse.c src/error.c src/normalize.c src/stack.c src/disorder.c
+SRCS  = src/main.c src/flags.c src/parse.c src/error.c \
+        src/normalize.c src/stack.c src/disorder.c \
+        src/swap_ops.c src/push_ops.c src/rotate_ops.c \
+        src/reverse_rotate_ops.c
 
 OBJS	= $(SRCS:.c=.o)
 
