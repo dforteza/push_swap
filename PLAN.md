@@ -29,10 +29,10 @@
 | mié 16 | Lectura del subject | — | — | ✅ |
 | jue 17 | Análisis + diseño | — | — | ✅ (terminado el vie 18) |
 | vie 18 | Fin del diseño + repo, `.gitignore`, libft, Makefile, `.h` (structs, prototipos, reparto de ficheros) | Flags: diseño + esqueleto de `flags.c` | — | ✅ |
-| sáb 19 | Colchón | Programar y probar `flags.c` → empezar parseo | (si hace falta) | ⬜ |
-| dom 20 | Colchón | (si hace falta) | (si hace falta) | ⬜ |
-| lun 21 | — | Flags + parseo + errores + construir `a` + liberar en error | Funciones internas + 11 operaciones con contadores, probadas una a una | ⬜ |
-| mar 22 | Revisar y mergear lo del lun 21 | Normalizar + desorden + `--simple` | Camino corto + casos pequeños 2-5 | ⬜ |
+| sáb 19 | Colchón | Programar y probar `flags.c` → empezar parseo | (si hace falta) | ✅ |
+| dom 20 | Colchón | `parse.c` terminado (norminette OK) | Operaciones escritas (`feat/movements`) | ✅ |
+| lun 21 | — | Errores + normalizar + desorden (adelantado del mar 22) | Operaciones pusheadas el dom 20, sin probar | ✅ |
+| mar 22 | Revisar y mergear `feat/movements` y `feat/flags` | `--simple` | Camino corto + casos pequeños 2-5 | ⬜ |
 | mié 23 | — | `--medium` (chunks) | `--complex` (radix) | ⬜ |
 | jue 24 | `--adaptive` (+ n ≤ 5) | Defensa GNL + revisar lo de B | O(n) (comprobación + una vuelta) | ⬜ |
 | vie 25 | `--bench` + script de medir | — | — | ⬜ |
@@ -81,14 +81,14 @@ Estados: ⬜ pendiente · 🟨 en curso · ✅ hecho · 🟥 retrasado
 - [x] [Juntos] Reparto de ficheros (máx. 5 funciones por fichero, 25 líneas)
 - [x] [Juntos] ¿PLAN.md va en el repo? → sí, `PLAN.md` y `tests/` dentro de git; quitarlos antes de vogsphere
 - [x] [A] Lectura de flags (decisión 6) → rama `feat/flags` (cc484c0), 6 casos probados
-- [ ] [A] Parseo con `ft_split` + conversión + detección de errores (decisiones 3-5) → 🟨 `is_valid` y `to_long` hechas; `parse_numbers` en borrador
-- [ ] [A] Construir la pila `a` (el primer argumento arriba)
-- [ ] [A] Liberar todo y salir con `Error` (decisión 15), valgrind limpio también en error
-- [ ] [A] Normalizar a índices (decisión 8)
-- [ ] [A] Cálculo del índice de desorden (decisiones 2 y 11)
+- [x] [A] Parseo con `ft_split` + conversión + detección de errores (decisiones 3-5) → `is_valid`, `ft_atol`, `is_duplicate`, `add_node`, `parse_numbers`
+- [x] [A] Construir la pila `a` (el primer argumento arriba) → `add_node` engancha al final
+- [x] [A] Liberar todo y salir con `Error` (decisión 15), valgrind limpio también en error → `error_exit` + `free_stack` + `free_split`
+- [x] [A] Normalizar a índices (decisión 8) → `normalize`, probada con extremos `INT_MIN`/`INT_MAX`
+- [x] [A] Cálculo del índice de desorden (decisión 2) → `compute_disorder`; falta imprimirlo en % (decisión 11, va con `--bench`)
 - [ ] [A] `--simple` (selección) da `OK` en el checker
-- [ ] [B] Funciones internas que solo mueven (decisión 10)
-- [ ] [B] Las 11 operaciones con contadores, probadas una a una
+- [x] [B] Funciones internas que solo mueven (decisión 10) → `swap`, `push`, `rotate`, `reverse_rotate` en `feat/movements` (sin mergear)
+- [ ] [B] Las 11 operaciones con contadores, probadas una a una → 🟨 escritas en `feat/movements`; pendientes de revisión y de probar
 - [ ] [B] Camino corto (`ra`/`rra`), una sola función (decisión 18)
 - [ ] [B] Casos pequeños 2, 3, 4 y 5 dan `OK` (decisiones 16 y 18)
 
@@ -186,7 +186,9 @@ Provisionales (16-09):
    - **Git**: `main` solo recibe merges revisados; una rama por tarea (`feat/parse`, `feat/ops`, `feat/radix`…); el otro revisa y el autor le explica el código antes del merge; commits en Conventional Commits.
    - **Calendario**: el de la tabla de arriba (columnas Juntos / A / B).
 
-Abiertas: ninguna. Diseño cerrado → Fase 3 (Base).
+21. (21-09) **Casos límite de pila corta**: una pila de 0 o 1 nodo **cuenta como ordenada** (no hay ningún par en mal orden), no como error. `is_sorted` devuelve 1 y `main` sale con 0 sin imprimir nada, que es justo lo que pide el subject para `< 2` números. En `compute_disorder`, si `total == 0` se devuelve 0 en vez de dividir (aunque `main` sale antes por `is_sorted`, la guarda se queda por seguridad y para la defensa).
+
+Abiertas: `ss` / `rr` / `rrr` cuando solo una de las dos pilas puede hacer la operación (duda de B en `feat/movements`: ahora mismo no hacen nada en absoluto, ni siquiera la pila que sí podía). Decidir entre los dos.
 
 ---
 
@@ -201,6 +203,22 @@ Plantilla (copiar arriba del todo cada día):
 - Mañana:
 - ¿Voy en plazo?: sí / no → ajuste:
 ```
+
+### 21-09-2026 · Fase: Base · Horas: _
+- Hecho: `error.c` cerrado → `free_stack` (bucle con `tmp` antes del `free`) y `error_exit` (libera split si lo hay + las dos pilas, `Error\n` por stderr con `ft_putstr_fd`, `exit(1)`). `main.c` limpiado (norminette OK) y conectado: flags → `parse_numbers` → `normalize` → `is_sorted` → `compute_disorder`. Batería de 22 casos de parseo pasada (válidos, comillas, `+3`, duplicados `7 007` y `0 -0`, desbordes, basura, vacíos) y valgrind limpio también en los caminos de error. `normalize.c` (índices por conteo de menores, O(n²)), `stack.c` con `is_sorted` (compara por `index`) y `disorder.c` con `compute_disorder`. `feat/flags` mergeada a `main` por PR #1.
+- Conceptos aclarados: por qué normalizar (radix mira 9 bits con índices frente a 32 con valores, y los negativos rompen el LSD; chunks necesita rangos contables); por qué el índice es "cuántos hay menores" y por qué `<` y no `<=`; puntero simple frente a doble (liberar nodos no necesita doble; solo hace falta si alguien vuelve a leer el puntero después, y detrás viene `exit`); `git add -A` frente a `git add .`.
+- Comprobado con mediciones: las listas aleatorias dan desorden ≈ 0,5 (0,475 con n=100 · 0,496 con n=500) → sostiene el umbral 0,5 de la decisión 19. Casi ordenada (2 cambios en 100) → 0,0002.
+- Bloqueos / dudas: `feat/movements` (de B) trae 3 ficheros vacíos colados (`checkout`, `git`, `main`), los `.c` en la raíz en vez de `src/` y nombres distintos a los del reparto. Su duda de `ss`/`rr`/`rrr` sigue abierta (decisión 21).
+- Mañana (mar 22): revisar y mergear `feat/movements` con ella (los 3 puntos de arriba + `ss`/`rr`/`rrr`), pushear `feat/flags`, y `--simple` (selección, decisión 12).
+- ¿Voy en plazo?: sí → normalizar y desorden estaban para el mar 22 y se han adelantado al lun 21.
+
+### 20-09-2026 · Fase: Base · Horas: _ (sesión corta)
+- Hecho: `parse.c` terminado y norminette OK: `is_valid`, `ft_atol` (antes `to_long`), `is_duplicate`, `add_node` y `parse_numbers`, las 4 primeras `static` y con comentario de cabecera. `free_split` movida a `error.c` (la usan los dos ficheros). `.h`: `#include <limits.h>` y secciones `// PARSING` y `// ERRORS`. Cadena del bucle interno: `is_valid` → `ft_atol` → rango de `int` → `is_duplicate` → `add_node`.
+- Conceptos aclarados: por qué `long` y no `int` ("no puedes detectar que algo no cabe en una caja si ya lo has metido en esa caja"; `unsigned` tampoco vale: no guarda negativos y también desborda); por qué `is_duplicate` va antes de `add_node` (traza con `3 1 3`); `i` recorre argumentos y `j` los trozos del split; `free_split` no necesita contador (el `NULL` final, como `argv`). Confirmado en el subject: `exit` está autorizada.
+- Bugs corregidos: `error_function()` + `return` muerto tras `exit`; faltaba `free_split` antes del `i++`; caso vacío `if (!nums || !nums[0])`; `is_duplicate` devolvía 0 al encontrar el duplicado; `if (!(n > INT_MIN && n < INT_MAX))` se comía los dos extremos; `add_node` mezclada dentro de `is_duplicate`.
+- Bloqueos / dudas: empecé perdido; funcionó ir poco a poco y con dibujos.
+- Mañana (lun 21): `error_exit`, liberar pila, limpiar `main.c`, "< 2 o ya ordenado → salir", normalizar y desorden.
+- ¿Voy en plazo?: sí.
 
 ### 19-09-2026 · Fase: Base · Horas: _
 - Hecho: `flags.c` programado y probado con los 6 casos (norminette OK), commit `cc484c0` en `feat/flags`. Mapa del `main` escrito como comentario en `main.c`: 1) procesar flags, 2) parsear números (incluye: < 2 números o ya ordenados → salir sin imprimir), 3) normalizar, 4) calcular desorden, 5) elegir algoritmo, 6) ordenar, 7) si bench → sacar info, 8) liberar y cerrar. En `parse.c`: `is_valid` (signo opcional + al menos un dígito + solo dígitos) y `to_long` (convierte en `long` y corta en cuanto pasa de 2147483648, así el `long` no desborda). Decidido: `void parse_numbers(t_ps *ps, int ac, char **av, int i)`; los errores llaman a `error_exit(ps, split)` (libera el split en curso y la pila, `Error\n` por stderr, `exit`; `NULL` si no hay split).
