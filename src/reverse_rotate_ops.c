@@ -12,13 +12,17 @@
 
 #include "push_swap.h"
 
+/*
+** Baja todos los nodos una posicion: el ultimo pasa a ser el primero.
+** Solo mueve: no imprime ni cuenta.
+*/
 void	reverse_rotate(t_node **stack)
 {
 	t_node	*first;
 	t_node	*previous;
 	t_node	*last;
 
-	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+	if (stack == NULL || has_two(*stack) == 0)
 		return ;
 	first = *stack;
 	last = *stack;
@@ -32,32 +36,31 @@ void	reverse_rotate(t_node **stack)
 	*stack = last;
 }
 
+/*
+** rra, rrb y rrr aplican reverse_rotate a la pila que toca y
+** registran la operacion. Misma regla que en swap y rotate.
+*/
 void	rra(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL || ps->a->next == NULL)
+	if (ps == NULL || has_two(ps->a) == 0)
 		return ;
 	reverse_rotate(&(ps->a));
-	write(1, "rra\n", 4);
-	ps->count[RRA] = ps->count[RRA] + 1;
+	log_op(ps, "rra\n", RRA);
 }
 
 void	rrb(t_ps *ps)
 {
-	if (ps == NULL || ps->b == NULL || ps->b->next == NULL)
+	if (ps == NULL || has_two(ps->b) == 0)
 		return ;
 	reverse_rotate(&(ps->b));
-	write(1, "rrb\n", 4);
-	ps->count[RRB] = ps->count[RRB] + 1;
+	log_op(ps, "rrb\n", RRB);
 }
 
-//hace falta revisar el caso de que un único stack pudiera hacerlo
 void	rrr(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL || ps->a->next == NULL
-		|| ps->b == NULL || ps->b->next == NULL)
+	if (ps == NULL || (has_two(ps->a) == 0 && has_two(ps->b) == 0))
 		return ;
 	reverse_rotate(&(ps->a));
 	reverse_rotate(&(ps->b));
-	write(1, "rrr\n", 4);
-	ps->count[RRR] = ps->count[RRR] + 1;
+	log_op(ps, "rrr\n", RRR);
 }

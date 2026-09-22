@@ -12,6 +12,11 @@
 
 #include "push_swap.h"
 
+/*
+** Libera el array que devuelve ft_split: primero cada cadena y
+** despues el array. No necesita contador porque ft_split deja un
+** NULL al final, igual que argv.
+*/
 void	free_split(char **nums)
 {
 	int	i;

@@ -12,12 +12,16 @@
 
 #include "push_swap.h"
 
+/*
+** Intercambia los dos primeros nodos de la pila.
+** Solo mueve: no imprime ni cuenta, de eso se encargan sa, sb y ss.
+*/
 void	swap(t_node **stack)
 {
 	t_node	*first;
 	t_node	*second;
 
-	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+	if (stack == NULL || has_two(*stack) == 0)
 		return ;
 	first = *stack;
 	second = (*stack)->next;
@@ -26,32 +30,33 @@ void	swap(t_node **stack)
 	*stack = second;
 }
 
+/*
+** sa, sb y ss aplican swap a la pila que toca y registran la
+** operacion con log_op. Se vuelven sin hacer nada si ninguna de las
+** pilas implicadas llega a dos nodos: gastar una operacion que no
+** cambia nada solo empeora el recuento final.
+*/
 void	sa(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL || ps->a->next == NULL)
+	if (ps == NULL || has_two(ps->a) == 0)
 		return ;
 	swap(&(ps->a));
-	write(1, "sa\n", 3);
-	ps->count[SA] = ps->count[SA] + 1;
+	log_op(ps, "sa\n", SA);
 }
 
 void	sb(t_ps *ps)
 {
-	if (ps == NULL || ps->b == NULL || ps->b->next == NULL)
+	if (ps == NULL || has_two(ps->b) == 0)
 		return ;
 	swap(&(ps->b));
-	write(1, "sb\n", 3);
-	ps->count[SB] = ps->count[SB] + 1;
+	log_op(ps, "sb\n", SB);
 }
 
-//hace falta revisar el caso de que un único stack pudiera hacerlo
 void	ss(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL || ps->a->next == NULL
-		|| ps->b == NULL || ps->b->next == NULL)
+	if (ps == NULL || (has_two(ps->a) == 0 && has_two(ps->b) == 0))
 		return ;
 	swap(&(ps->a));
 	swap(&(ps->b));
-	write(1, "ss\n", 3);
-	ps->count[SS] = ps->count[SS] + 1;
+	log_op(ps, "ss\n", SS);
 }

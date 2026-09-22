@@ -26,3 +26,14 @@ int	is_sorted(t_node *a)
 	}
 	return (1);
 }
+
+/*
+** Devuelve 1 si la pila tiene al menos dos nodos, que es lo minimo
+** para que swap, rotate y reverse_rotate cambien algo.
+*/
+int	has_two(t_node *stack)
+{
+	if (stack == NULL || stack->next == NULL)
+		return (0);
+	return (1);
+}

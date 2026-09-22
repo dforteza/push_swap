@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ops_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/11 19:24:13 by dforteza          #+#    #+#             */
-/*   Updated: 2026/09/14 13:22:49 by difortez         ###   ########.fr       */
+/*   Created: 2026/09/22 12:00:00 by difortez          #+#    #+#             */
+/*   Updated: 2026/09/22 12:00:00 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t size)
+/*
+** Registra una operacion: escribe su nombre por la salida estandar
+** y suma uno a su contador. Asi imprimir y contar nunca se separan.
+*/
+void	log_op(t_ps *ps, char *name, int op)
 {
-	size_t	i;
-
-	i = 0;
-	while ((s1[i] || s2[i]) && i < size)
-	{
-		if (s1[i] != s2[i])
-			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-		i++;
-	}
-	return (0);
+	ft_putstr_fd(name, 1);
+	ps->count[op]++;
 }
