@@ -77,6 +77,15 @@ void				push(t_node **src, t_node **dst);
 // OPS UTILS
 void				log_op(t_ps *ps, char *name, int op);
 
+// SELECTION SORT (--simple)
+void				selection_sort(t_ps *ps);
+
+// SMALL SORT (de Beatriz, aun sin mergear)
+void				small_sort(t_ps *ps);
+int					find_min(t_node *stack);
+int					find_place(t_node *stack, int n);
+int					find_size(t_node *stack);
+
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
 
