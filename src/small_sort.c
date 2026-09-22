@@ -6,7 +6,7 @@
 /*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 22:50:00 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/20 23:57:08 by beatrizdoca      ###   ########.fr       */
+/*   Updated: 2026/09/22 17:24:15 by beatrizdoca      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	is_ready(t_node *stack)
 
 void	sort_three(t_ps *ps)
 {
-	t_node	*first;
-	t_node	*second;
 	int		max;
 
 	if (ps == NULL || ps->a == NULL)
@@ -39,14 +37,12 @@ void	sort_three(t_ps *ps)
 	if (ps->a->next == NULL || is_ready(ps->a) == 1)
 		return ;
 	max = find_max(ps->a);
-	first = ps->a;
-	second = ps->a->next;
-	if (first->index == max)
+	if (ps->a->index == max)
 		ra(ps);
-	else if (second->index == max)
+	else if (ps->a->next->index == max)
 		rra(ps);
 	//tengo que considerar que eso cambia los valores
-	if (first->index > second->index)
+	if (ps->a->index > ps->a->next->index)
 		sa(ps);
 }
 
