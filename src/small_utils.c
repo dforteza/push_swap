@@ -6,23 +6,11 @@
 /*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 20:43:48 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/20 23:53:14 by beatrizdoca      ###   ########.fr       */
+/*   Updated: 2026/09/25 01:39:21 by beatrizdoca      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_node	*find_last(t_node *stack)
-{
-	t_node	*last;
-
-	if (stack == NULL || stack->next == NULL)
-		return (stack);
-	last = stack;
-	while (last->next != NULL)
-		last = last->next;
-	return (last);
-}
 
 int	find_max(t_node *stack)
 {
@@ -56,21 +44,21 @@ int	find_min(t_node *stack)
 	return (min);
 }
 
-int	find_place(t_node *stack, int n)
+int	find_where(t_node *stack, int n)
 {
 	t_node	*current;
-	int		place;
+	int		position;
 
 	current = stack;
-	place = 0;
+	position = 0;
 	while (current != NULL)
 	{
 		if (current->index == n)
-			return (place);
+			return (position);
 		current = current->next;
-		place++;
+		position++;
 	}
-	return (place);
+	return (position);
 }
 
 int	find_size(t_node *stack)
