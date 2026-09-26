@@ -13,14 +13,9 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-/*
-** 1. PROCESAR FLAGS          5. ELEGIR ALGORITMO
-** 2. PARSEAR NUMEROS         6. ORDENAR
-** 3. NORMALIZAR              7. SI BENCH -> SACAR INFO
-** 4. CALCULAR DESORDEN       8. LIBERAR Y CERRAR
-*/
-
-/* TRAZAS: print_stack y trace se borran enteras en la entrega. */
+/**
+ * Traza temporal (se borra en la entrega): imprime stack por stderr.
+ */
 static void	print_stack(t_node *stack, char *name)
 {
 	fprintf(stderr, "  %s: [", name);
@@ -34,7 +29,10 @@ static void	print_stack(t_node *stack, char *name)
 	fprintf(stderr, "]\n");
 }
 
-/* TRAZAS */
+/**
+ * Traza temporal (se borra en la entrega): estado de ps por stderr.
+ * @param tag etiqueta de la traza, p. ej. "ANTES"
+ */
 static void	trace(t_ps *ps, char *tag)
 {
 	int	i;
@@ -53,14 +51,23 @@ static void	trace(t_ps *ps, char *tag)
 	print_stack(ps->b, "b");
 }
 
+/**
+ * Llama al algoritmo elegido en ps->strategy.
+ */
 static void	run_strategy(t_ps *ps)
 {
 	if (ps->strategy == SIMPLE)
 		selection_sort(ps);
+	else if (ps->strategy == MEDIUM)
+		chunk_sort(ps);
 	else
 		fprintf(stderr, "TBD...\n");
 }
 
+/**
+ * Flags, numeros, normalizar, desorden, ordenar y liberar.
+ * @return 0; los errores salen antes por error_exit
+ */
 int	main(int ac, char **av)
 {
 	t_ps	ps;

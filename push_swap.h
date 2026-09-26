@@ -77,8 +77,14 @@ void				push(t_node **src, t_node **dst);
 // OPS UTILS
 void				log_op(t_ps *ps, char *name, int op);
 
+// SORT UTILS
+void				move_to_top(t_ps *ps, char name, int p);
+
 // SELECTION SORT (--simple)
 void				selection_sort(t_ps *ps);
+
+// CHUNK SORT (--medium)
+void				chunk_sort(t_ps *ps);
 
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
