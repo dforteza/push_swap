@@ -56,10 +56,14 @@ static void	trace(t_ps *ps, char *tag)
  */
 static void	run_strategy(t_ps *ps)
 {
-	if (ps->strategy == SIMPLE)
+	if (find_size(ps->a) <= 5)
+		small_sort(ps);
+	else if (ps->strategy == SIMPLE)
 		selection_sort(ps);
 	else if (ps->strategy == MEDIUM)
 		chunk_sort(ps);
+	else if (ps->strategy == COMPLEX)
+		radix_sort(ps);
 	else
 		fprintf(stderr, "TBD...\n");
 }

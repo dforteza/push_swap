@@ -86,6 +86,12 @@ void				selection_sort(t_ps *ps);
 // CHUNK SORT (--medium)
 void				chunk_sort(t_ps *ps);
 
+// SMALL SORT (5 o menos)
+void				small_sort(t_ps *ps);
+
+// RADIX SORT (--complex)
+void				radix_sort(t_ps *ps);
+
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
 

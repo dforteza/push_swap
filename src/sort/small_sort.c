@@ -12,31 +12,16 @@
 
 #include "push_swap.h"
 
-int	is_ready(t_node *stack)
-{
-	t_node	*current;
-
-	if (stack == NULL || stack->next == NULL)
-		return (1);
-	current = stack;
-	while (current->next != NULL)
-	{
-		if (current->index > current->next->index)
-			return (0);
-		current = current->next;
-	}
-	return (1);
-}
-
-void	sort_three(t_ps *ps)
+/**
+ * Ordena los 3 nodos de a: sube el mayor al fondo y, si hace falta, sa.
+ */
+static void	sort_three(t_ps *ps)
 {
 	int	max;
 
+	if (is_sorted(ps->a))
+		return ;
 	max = find_max(ps->a);
-	if (ps == NULL || ps->a == NULL)
-		return ;
-	if (ps->a->next == NULL || is_ready(ps->a) == 1)
-		return ;
 	if (ps->a->index == max)
 		ra(ps);
 	else if (ps->a->next->index == max)
@@ -45,26 +30,23 @@ void	sort_three(t_ps *ps)
 		sa(ps);
 }
 
-void	sort_four(t_ps *ps)
+/**
+ * Ordena 4 nodos: pasa el menor a b, ordena los 3 de a y lo devuelve.
+ */
+static void	sort_four(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL)
-		return ;
-	while (ps->a->index != 0)
-	{
-		if (find_where(ps->a, 0) <= 2)
-			ra(ps);
-		else
-			rra(ps);
-	}
+	move_to_top(ps, 'a', find_place(ps->a, find_min(ps->a)));
 	pb(ps);
 	sort_three(ps);
 	pa(ps);
 }
 
-void	sort_five(t_ps *ps)
+/**
+ * Ordena 5 nodos: pasa los indices 0 y 1 a b, ordena los 3 de a y los
+ * devuelve con el 1 primero.
+ */
+static void	sort_five(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL)
-		return ;
 	while (find_size(ps->a) > 3)
 	{
 		if (ps->a->index == 0 || ps->a->index == 1)
@@ -79,21 +61,22 @@ void	sort_five(t_ps *ps)
 	pa(ps);
 }
 
+/**
+ * Ordena a cuando tiene 5 nodos o menos, con el minimo de operaciones.
+ */
 void	small_sort(t_ps *ps)
 {
-	int	how_many;
+	int	size;
 
-	if (ps == NULL || ps->a == NULL)
+	if (ps == NULL || is_sorted(ps->a))
 		return ;
-	if (ps->a->next == NULL || is_ready(ps->a) == 1)
-		return ;
-	how_many = find_size(ps->a);
-	if (how_many == 2)
+	size = find_size(ps->a);
+	if (size == 2)
 		sa(ps);
-	else if (how_many == 3)
+	else if (size == 3)
 		sort_three(ps);
-	else if (how_many == 4)
+	else if (size == 4)
 		sort_four(ps);
-	else if (how_many == 5)
+	else if (size == 5)
 		sort_five(ps);
 }
