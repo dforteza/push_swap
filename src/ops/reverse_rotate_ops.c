@@ -12,10 +12,9 @@
 
 #include "push_swap.h"
 
-/*
-** Baja todos los nodos una posicion: el ultimo pasa a ser el primero.
-** Solo mueve: no imprime ni cuenta.
-*/
+/**
+ * Pasa el ultimo nodo de stack a la cima. Solo mueve: no imprime.
+ */
 void	reverse_rotate(t_node **stack)
 {
 	t_node	*first;
@@ -36,10 +35,10 @@ void	reverse_rotate(t_node **stack)
 	*stack = last;
 }
 
-/*
-** rra, rrb y rrr aplican reverse_rotate a la pila que toca y
-** registran la operacion. Misma regla que en swap y rotate.
-*/
+/**
+ * rra, rrb y rrr: reverse_rotate en a, en b o en ambas, e imprimen.
+ * Si no hay dos nodos, no hacen nada (no gastan operacion).
+ */
 void	rra(t_ps *ps)
 {
 	if (ps == NULL || has_two(ps->a) == 0)

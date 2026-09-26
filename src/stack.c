@@ -12,10 +12,11 @@
 
 #include "push_swap.h"
 
-/*
-** Devuelve 1 si la pila esta ordenada de menor a mayor por index.
-** Una pila vacia o de un solo nodo cuenta como ordenada.
-*/
+/**
+ * Comprueba si a esta ordenada de menor a mayor.
+ * @param a pila a revisar (puede estar vacia)
+ * @return 1 si esta ordenada, 0 si no
+ */
 int	is_sorted(t_node *a)
 {
 	while (a && a->next)
@@ -27,10 +28,10 @@ int	is_sorted(t_node *a)
 	return (1);
 }
 
-/*
-** Devuelve 1 si la pila tiene al menos dos nodos, que es lo minimo
-** para que swap, rotate y reverse_rotate cambien algo.
-*/
+/**
+ * Comprueba si stack tiene al menos dos nodos.
+ * @return 1 si los tiene, 0 si no
+ */
 int	has_two(t_node *stack)
 {
 	if (stack == NULL || stack->next == NULL)

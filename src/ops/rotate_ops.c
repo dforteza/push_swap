@@ -12,10 +12,9 @@
 
 #include "push_swap.h"
 
-/*
-** Sube todos los nodos una posicion: el primero pasa a ser el ultimo.
-** Solo mueve: no imprime ni cuenta.
-*/
+/**
+ * Pasa la cima de stack al final. Solo mueve: no imprime.
+ */
 void	rotate(t_node **stack)
 {
 	t_node	*first;
@@ -32,11 +31,10 @@ void	rotate(t_node **stack)
 	last->next = first;
 }
 
-/*
-** ra, rb y rr aplican rotate a la pila que toca y registran la
-** operacion. Misma regla que en swap: si ninguna pila implicada
-** llega a dos nodos, no se hace ni se imprime nada.
-*/
+/**
+ * ra, rb y rr: rotate en a, en b o en ambas, e imprimen la operacion.
+ * Si no hay dos nodos, no hacen nada (no gastan operacion).
+ */
 void	ra(t_ps *ps)
 {
 	if (ps == NULL || has_two(ps->a) == 0)

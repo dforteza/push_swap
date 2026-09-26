@@ -3,26 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
+/*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 20:43:48 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/20 23:53:14 by beatrizdoca      ###   ########.fr       */
+/*   Updated: 2026/09/26 13:34:27 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-** Consultas genericas sobre una pila, escritas por Beatriz (rama
-** feat/small). Las usan los casos pequenos, la seleccion y, mas
-** adelante, chunks y radix.
-*/
-
+/**
+ * Busca el ultimo nodo de stack.
+ * @return el ultimo nodo, o NULL si esta vacia
+ */
 t_node	*find_last(t_node *stack)
 {
 	t_node	*last;
 
-	if (stack == NULL || stack->next == NULL)
+	if (has_two(stack) == 0)
 		return (stack);
 	last = stack;
 	while (last->next != NULL)
@@ -30,6 +28,11 @@ t_node	*find_last(t_node *stack)
 	return (last);
 }
 
+/**
+ * Busca el mayor index de stack.
+ * @param stack pila no vacia
+ * @return el index mayor
+ */
 int	find_max(t_node *stack)
 {
 	t_node	*current;
@@ -46,6 +49,11 @@ int	find_max(t_node *stack)
 	return (max);
 }
 
+/**
+ * Busca el menor index de stack.
+ * @param stack pila no vacia
+ * @return el index menor
+ */
 int	find_min(t_node *stack)
 {
 	t_node	*current;
@@ -62,6 +70,10 @@ int	find_min(t_node *stack)
 	return (min);
 }
 
+/**
+ * Busca en que posicion de stack esta el index n.
+ * @return la posicion (0 = cima)
+ */
 int	find_place(t_node *stack, int n)
 {
 	t_node	*current;
@@ -79,6 +91,10 @@ int	find_place(t_node *stack, int n)
 	return (place);
 }
 
+/**
+ * Cuenta los nodos de stack.
+ * @return el numero de nodos
+ */
 int	find_size(t_node *stack)
 {
 	t_node	*current;

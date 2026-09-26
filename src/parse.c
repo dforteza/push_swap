@@ -12,12 +12,10 @@
 
 #include "push_swap.h"
 
-/*
-** Devuelve 1 si str tiene forma de numero entero, 0 si no.
-** Acepta un '+' o '-' inicial y exige al menos un digito detras;
-** a partir de ahi todos los caracteres deben ser digitos.
-** Solo mira la forma: no dice cuanto vale ni si cabe en un int.
-*/
+/**
+ * Comprueba que str sea un entero: signo opcional y solo digitos.
+ * @return 1 si es valido, 0 si no
+ */
 static int	is_valid(char *str)
 {
 	int	i;
@@ -36,12 +34,11 @@ static int	is_valid(char *str)
 	return (1);
 }
 
-/*
-** Convierte str a long. Da por hecho que is_valid ya lo ha validado.
-** Corta el bucle en cuanto res pasa de 2147483648 para no desbordar
-** el long con entradas de muchos digitos: el valor que devuelve sigue
-** siendo mayor que INT_MAX, que es lo unico que hace falta saber.
-*/
+/**
+ * Convierte str a long; para al pasar de INT_MAX para no desbordar.
+ * @param str cadena ya validada por is_valid
+ * @return el numero, o uno fuera del rango int si era demasiado grande
+ */
 static long	ft_atol(char *str)
 {
 	int		i;
@@ -67,11 +64,10 @@ static long	ft_atol(char *str)
 	return (res * sign);
 }
 
-/*
-** Devuelve 1 si n ya esta en la pila a, 0 si no.
-** Recorre la lista comparando value. Con la lista vacia devuelve 0
-** sin dar ninguna vuelta.
-*/
+/**
+ * Comprueba si n ya esta en la pila a.
+ * @return 1 si esta, 0 si no
+ */
 static int	is_duplicate(t_node *a, long n)
 {
 	if (a == NULL)
@@ -85,12 +81,10 @@ static int	is_duplicate(t_node *a, long n)
 	return (0);
 }
 
-/*
-** Crea un nodo con value = n (index lo rellena normalize despues) y lo
-** engancha al final de la pila a. Dos casos: si la lista esta vacia el
-** nodo pasa a ser la cabeza; si no, recorre hasta el ultimo y lo cuelga.
-** Si falla el malloc llama a error_exit, que libera todo y sale.
-*/
+/**
+ * Crea un nodo con value = n y lo anade al final de a.
+ * @param nums split actual, para liberarlo si falla malloc
+ */
 static void	add_node(t_ps *ps, char **nums, long n)
 {
 	t_node	*new;
@@ -113,12 +107,10 @@ static void	add_node(t_ps *ps, char **nums, long n)
 	}
 }
 
-/*
-** Recorre av desde i (primer argumento que no es flag) y parte cada uno
-** por espacios, porque un solo argumento puede traer varios numeros.
-** Cada trozo pasa por la cadena: is_valid -> ft_atol -> rango de int ->
-** is_duplicate -> add_node. Cualquier fallo llama a error_exit.
-*/
+/**
+ * Valida cada numero de av y construye la pila a; si falla, error_exit.
+ * @param i posicion del primer numero en av
+ */
 void	parse_numbers(t_ps *ps, int ac, char **av, int i)
 {
 	char	**nums;

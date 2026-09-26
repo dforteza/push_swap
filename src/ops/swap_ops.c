@@ -12,10 +12,9 @@
 
 #include "push_swap.h"
 
-/*
-** Intercambia los dos primeros nodos de la pila.
-** Solo mueve: no imprime ni cuenta, de eso se encargan sa, sb y ss.
-*/
+/**
+ * Intercambia los dos primeros nodos de stack. Solo mueve: no imprime.
+ */
 void	swap(t_node **stack)
 {
 	t_node	*first;
@@ -30,12 +29,10 @@ void	swap(t_node **stack)
 	*stack = second;
 }
 
-/*
-** sa, sb y ss aplican swap a la pila que toca y registran la
-** operacion con log_op. Se vuelven sin hacer nada si ninguna de las
-** pilas implicadas llega a dos nodos: gastar una operacion que no
-** cambia nada solo empeora el recuento final.
-*/
+/**
+ * sa, sb y ss: swap en a, en b o en ambas, e imprimen la operacion.
+ * Si no hay dos nodos, no hacen nada (no gastan operacion).
+ */
 void	sa(t_ps *ps)
 {
 	if (ps == NULL || has_two(ps->a) == 0)

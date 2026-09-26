@@ -12,10 +12,9 @@
 
 #include "push_swap.h"
 
-/*
-** Saca el primer nodo de src y lo coloca como primero de dst.
-** Solo mueve: no imprime ni cuenta.
-*/
+/**
+ * Pasa la cima de src a la cima de dst. Solo mueve: no imprime.
+ */
 void	push(t_node **src, t_node **dst)
 {
 	t_node	*target;
@@ -28,10 +27,10 @@ void	push(t_node **src, t_node **dst)
 	*dst = target;
 }
 
-/*
-** pa mueve el primero de b a a, y pb al reves. Basta con un nodo en
-** la pila de origen; si esta vacia no se hace ni se imprime nada.
-*/
+/**
+ * pa pasa la cima de b a a; pb, la de a a b.
+ * Si la pila de origen esta vacia, no hacen nada.
+ */
 void	pa(t_ps *ps)
 {
 	if (ps == NULL || ps->b == NULL)

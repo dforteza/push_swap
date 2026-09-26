@@ -12,11 +12,9 @@
 
 #include "push_swap.h"
 
-/*
-** Rellena el campo index de cada nodo con su posicion en la lista
-** ordenada: el menor recibe 0 y el mayor n-1. El indice de un nodo es
-** cuantos valores hay menores que el. No mueve ningun nodo.
-*/
+/**
+ * Pone en cada index su posicion final: cuantos valores hay menores.
+ */
 void	normalize(t_ps *ps)
 {
 	t_node	*i;
