@@ -1,63 +1,65 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate_ops.c                                       :+:      :+:    :+:   */
+/*   reverse_rotate_ops.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/19 13:48:11 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/22 16:00:11 by difortez         ###   ########.fr       */
+/*   Created: 2026/09/19 14:09:14 by beatrizdoca       #+#    #+#             */
+/*   Updated: 2026/09/20 20:32:06 by beatrizdoca      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-/*
-** Sube todos los nodos una posicion: el primero pasa a ser el ultimo.
-** Solo mueve: no imprime ni cuenta.
-*/
-void	rotate(t_node **stack)
+/**
+ * Pasa el ultimo nodo de stack a la cima. Solo mueve: no imprime.
+ */
+void	reverse_rotate(t_node **stack)
 {
 	t_node	*first;
+	t_node	*previous;
 	t_node	*last;
 
 	if (stack == NULL || has_two(*stack) == 0)
 		return ;
 	first = *stack;
-	*stack = first->next;
-	first->next = NULL;
 	last = *stack;
 	while (last->next != NULL)
+	{
+		previous = last;
 		last = last->next;
+	}
+	previous->next = NULL;
 	last->next = first;
+	*stack = last;
 }
 
-/*
-** ra, rb y rr aplican rotate a la pila que toca y registran la
-** operacion. Misma regla que en swap: si ninguna pila implicada
-** llega a dos nodos, no se hace ni se imprime nada.
-*/
-void	ra(t_ps *ps)
+/**
+ * rra, rrb y rrr: reverse_rotate en a, en b o en ambas, e imprimen.
+ * Si no hay dos nodos, no hacen nada (no gastan operacion).
+ */
+void	rra(t_ps *ps)
 {
 	if (ps == NULL || has_two(ps->a) == 0)
 		return ;
-	rotate(&(ps->a));
-	log_op(ps, "ra\n", RA);
+	reverse_rotate(&(ps->a));
+	log_op(ps, "rra\n", RRA);
 }
 
-void	rb(t_ps *ps)
+void	rrb(t_ps *ps)
 {
 	if (ps == NULL || has_two(ps->b) == 0)
 		return ;
-	rotate(&(ps->b));
-	log_op(ps, "rb\n", RB);
+	reverse_rotate(&(ps->b));
+	log_op(ps, "rrb\n", RRB);
 }
 
-void	rr(t_ps *ps)
+void	rrr(t_ps *ps)
 {
 	if (ps == NULL || (has_two(ps->a) == 0 && has_two(ps->b) == 0))
 		return ;
-	rotate(&(ps->a));
-	rotate(&(ps->b));
-	log_op(ps, "rr\n", RR);
+	reverse_rotate(&(ps->a));
+	reverse_rotate(&(ps->b));
+	log_op(ps, "rrr\n", RRR);
 }

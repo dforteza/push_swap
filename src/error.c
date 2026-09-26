@@ -12,11 +12,10 @@
 
 #include "push_swap.h"
 
-/*
-** Libera el array que devuelve ft_split: primero cada cadena y
-** despues el array. No necesita contador porque ft_split deja un
-** NULL al final, igual que argv.
-*/
+/**
+ * Libera el array de ft_split y cada una de sus cadenas.
+ * @param nums array terminado en NULL
+ */
 void	free_split(char **nums)
 {
 	int	i;
@@ -30,11 +29,10 @@ void	free_split(char **nums)
 	free(nums);
 }
 
-/*
-** Libera todos los nodos de una pila. Guarda el next en tmp antes de
-** liberar el nodo: despues del free ya no se puede leer su contenido.
-** Con stack a NULL el bucle no entra y no hace nada.
-*/
+/**
+ * Libera todos los nodos de una pila.
+ * @param stack pila a liberar (puede estar vacia)
+ */
 void	free_stack(t_node *stack)
 {
 	t_node	*tmp;
@@ -47,11 +45,10 @@ void	free_stack(t_node *stack)
 	}
 }
 
-/*
-** Salida unica de error: libera el split (si lo hay) y las dos pilas,
-** escribe Error por la salida de error y termina el programa.
-** nums es NULL cuando el error salta antes de haber hecho el split.
-*/
+/**
+ * Libera todo, escribe "Error" por stderr y termina con exit(1).
+ * @param nums split pendiente de liberar, o NULL
+ */
 void	error_exit(t_ps *ps, char **nums)
 {
 	if (nums)

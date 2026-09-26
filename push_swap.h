@@ -77,12 +77,26 @@ void				push(t_node **src, t_node **dst);
 // OPS UTILS
 void				log_op(t_ps *ps, char *name, int op);
 
+// SORT UTILS
+void				move_to_top(t_ps *ps, char name, int p);
+
+// SELECTION SORT (--simple)
+void				selection_sort(t_ps *ps);
+
+// CHUNK SORT (--medium)
+void				chunk_sort(t_ps *ps);
+
 // FLAGS
 int					parse_flags(int argc, char **argv, t_ps *ps);
 
 // STACK
 int					is_sorted(t_node *a);
 int					has_two(t_node *stack);
+int					find_size(t_node *stack);
+int					find_min(t_node *stack);
+int					find_max(t_node *stack);
+int					find_place(t_node *stack, int n);
+t_node				*find_last(t_node *stack);
 
 // PARSING
 void				parse_numbers(t_ps *ps, int ac, char **av, int i);

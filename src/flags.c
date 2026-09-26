@@ -12,11 +12,12 @@
 
 #include "push_swap.h"
 
-/*
-** Devuelve 1 si arg es exactamente flag, 0 si no.
-** Compara ft_strlen(flag) + 1 caracteres para incluir el '\0':
-** asi "--simplex" no pasa como "--simple".
-*/
+/**
+ * Compara arg con flag incluyendo el '\0': "--simplex" no vale.
+ * @param arg  argumento de av
+ * @param flag flag esperado, p. ej. "--simple"
+ * @return 1 si son iguales, 0 si no
+ */
 static int	is_flag(char *arg, char *flag)
 {
 	int	len;
@@ -27,11 +28,11 @@ static int	is_flag(char *arg, char *flag)
 	return (1);
 }
 
-/*
-** Guarda la estrategia en ps->strategy.
-** Si ya habia una (ps->strategy != NONE) devuelve -1 (dos estrategias).
-** Si no, la guarda y devuelve 0.
-*/
+/**
+ * Guarda la estrategia en ps, si no habia otra ya.
+ * @param strategy SIMPLE, MEDIUM, COMPLEX o ADAPTIVE
+ * @return 0 si va bien, -1 si ya habia una estrategia
+ */
 static int	set_strategy(t_ps *ps, int strategy)
 {
 	if (ps->strategy != NONE)
@@ -40,13 +41,11 @@ static int	set_strategy(t_ps *ps, int strategy)
 	return (0);
 }
 
-/*
-** Mira cual de los 5 flags es arg y actua:
-**   --simple, --medium, --complex, --adaptive -> set_strategy
-**   --bench -> ps->bench = 1 (si ya era 1 -> -1, flag repetido)
-**   cualquier otro -> -1 (flag inexistente)
-** Devuelve 0 si todo va bien, -1 si hay error.
-*/
+/**
+ * Identifica el flag y lo aplica a ps.
+ * @param arg argumento que empieza por "--"
+ * @return 0 si va bien, -1 si no existe o esta repetido
+ */
 static int	read_flag(t_ps *ps, char *arg)
 {
 	if (is_flag(arg, "--simple"))
@@ -67,13 +66,10 @@ static int	read_flag(t_ps *ps, char *arg)
 	return (-1);
 }
 
-/*
-** Recorre av desde i = 1 mientras av[i] empiece por "--".
-** Para cada flag llama a read_flag; si devuelve -1 -> devuelve -1.
-** Al terminar, si ps->strategy sigue en NONE -> ADAPTIVE.
-** Devuelve i: el primer argumento con numeros (o -1 si hubo error).
-** Un flag despues de un numero lo detecta el parseo, no esta funcion.
-*/
+/**
+ * Lee los flags del principio de av; sin estrategia, usa ADAPTIVE.
+ * @return posicion del primer numero en av, o -1 si hay error
+ */
 int	parse_flags(int ac, char **av, t_ps *ps)
 {
 	int	i;

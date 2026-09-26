@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-/*
-** Devuelve el indice de desorden: cuantos pares estan mal ordenados
-** entre el total de pares posibles. Vale 0 si la pila esta ordenada y
-** 1 si esta del todo al reves. Con menos de 2 nodos no hay pares.
-*/
+/**
+ * Calcula el indice de desorden: pares mal ordenados entre pares totales.
+ * @param a pila ya normalizada
+ * @return de 0.0 (ordenada) a 1.0 (del reves)
+ */
 double	compute_disorder(t_node *a)
 {
 	t_node	*i;
