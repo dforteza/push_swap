@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:10:01 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/22 17:46:52 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/27 20:32:22 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,63 +14,48 @@
 #include <stdio.h>
 
 /**
- * Traza temporal (se borra en la entrega): imprime stack por stderr.
+ * Apunta en ps->used el algoritmo que toca segun n, flag y desorden.
  */
-static void	print_stack(t_node *stack, char *name)
+static void	choose_strategy(t_ps *ps)
 {
-	fprintf(stderr, "  %s: [", name);
-	while (stack)
+	if (find_size(ps->a) <= 5)
+		ps->used = SMALL;
+	else
 	{
-		fprintf(stderr, "%d", stack->index);
-		if (stack->next)
-			fprintf(stderr, " ");
-		stack = stack->next;
+		if (ps->strategy != ADAPTIVE)
+			ps->used = ps->strategy;
+		else
+		{
+			if (ps->disorder < 0.2)
+				ps->used = LINEAR;
+			else if (ps->disorder < 0.5)
+				ps->used = MEDIUM;
+			else
+				ps->used = COMPLEX;
+		}
 	}
-	fprintf(stderr, "]\n");
 }
 
 /**
- * Traza temporal (se borra en la entrega): estado de ps por stderr.
- * @param tag etiqueta de la traza, p. ej. "ANTES"
- */
-static void	trace(t_ps *ps, char *tag)
-{
-	int	i;
-	int	total;
-
-	i = 0;
-	total = 0;
-	while (i < N_OPS)
-	{
-		total += ps->count[i];
-		i++;
-	}
-	fprintf(stderr, "--- %s | n=%d | estrategia=%d | desorden=%.4f | %d ops\n",
-		tag, find_size(ps->a), ps->strategy, ps->disorder, total);
-	print_stack(ps->a, "a");
-	print_stack(ps->b, "b");
-}
-
-/**
- * Llama al algoritmo elegido en ps->strategy.
+ * Elige la estrategia y ejecuta el algoritmo correspondiente.
  */
 static void	run_strategy(t_ps *ps)
 {
-	if (find_size(ps->a) <= 5)
+	if (ps->used == SMALL)
 		small_sort(ps);
-	else if (ps->strategy == SIMPLE)
+	else if (ps->used == LINEAR)
+		printf("TBD...");
+	else if (ps->used == SIMPLE)
 		selection_sort(ps);
-	else if (ps->strategy == MEDIUM)
+	else if (ps->used == MEDIUM)
 		chunk_sort(ps);
-	else if (ps->strategy == COMPLEX)
+	else if (ps->used == COMPLEX)
 		radix_sort(ps);
-	else
-		fprintf(stderr, "TBD...\n");
 }
 
 /**
  * Flags, numeros, normalizar, desorden, ordenar y liberar.
- * @return 0; los errores salen antes por error_exit
+ * @return (0); los errores salen antes por error_exit
  */
 int	main(int ac, char **av)
 {
@@ -84,15 +69,12 @@ int	main(int ac, char **av)
 		error_exit(&ps, NULL);
 	parse_numbers(&ps, ac, av, i);
 	normalize(&ps);
-	if (is_sorted(ps.a))
-	{
-		free_stack(ps.a);
-		return (0);
-	}
 	ps.disorder = compute_disorder(ps.a);
-	trace(&ps, "ANTES");
-	run_strategy(&ps);
-	trace(&ps, "DESPUES");
+	choose_strategy(&ps);
+	if (!is_sorted(ps.a))
+		run_strategy(&ps);
+	if (ps.bench == 1)
+		print_bench(&ps);
 	free_stack(ps.a);
 	free_stack(ps.b);
 	return (0);
