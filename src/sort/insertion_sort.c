@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_timed_little_chaos.c                           :+:      :+:    :+:   */
+/*   insertion_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/26 13:29:01 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/27 02:39:37 by beatrizdoca      ###   ########.fr       */
+/*   Updated: 2026/09/27 03:08:08 by beatrizdoca      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 //falta ver funcionar
 //pero entiendo que la complejidad no es O(n+k)
 //sino algo entre ello y 0(n.k)
+//más bien O(n.k) precisamente por la vuelta en k
 //porque da vuelta en el pequeño caos
 //aunque la preordenacion de push_chaos mitiga
+//lo ideal seria la lis con calculo de coste
+//de seguir con mejorar los algoritmos me pongo con ello
 //ya se hacen los nombres más normales también
 
 //cuestión de línea
