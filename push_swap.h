@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/21 17:21:56 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/27 13:33:36 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define MEDIUM 1
 # define COMPLEX 2
 # define ADAPTIVE 3
+# define LINEAR 4
+# define SMALL 5
 
 # define SA 0
 # define SB 1
@@ -47,6 +49,7 @@ typedef struct s_ps
 	t_node			*a;
 	t_node			*b;
 	int				strategy;
+	int				used;
 	int				bench;
 	int				count[N_OPS];
 	double			disorder;
@@ -117,5 +120,8 @@ void				normalize(t_ps *ps);
 
 // DISORDER
 double				compute_disorder(t_node *a);
+
+// BENCH
+void				print_bench(t_ps *ps);
 
 #endif
