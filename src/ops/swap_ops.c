@@ -13,15 +13,13 @@
 #include "push_swap.h"
 
 /**
- * Intercambia los dos primeros nodos de stack. Solo mueve: no imprime.
+ * Intercambia los dos primeros nodos. Solo mueve: no imprime ni comprueba.
  */
 void	swap(t_node **stack)
 {
 	t_node	*first;
 	t_node	*second;
 
-	if (stack == NULL || has_two(*stack) == 0)
-		return ;
 	first = *stack;
 	second = (*stack)->next;
 	first->next = second->next;
@@ -35,7 +33,7 @@ void	swap(t_node **stack)
  */
 void	sa(t_ps *ps)
 {
-	if (ps == NULL || has_two(ps->a) == 0)
+	if (has_two(ps->a) == 0)
 		return ;
 	swap(&(ps->a));
 	log_op(ps, "sa\n", SA);
@@ -43,7 +41,7 @@ void	sa(t_ps *ps)
 
 void	sb(t_ps *ps)
 {
-	if (ps == NULL || has_two(ps->b) == 0)
+	if (has_two(ps->b) == 0)
 		return ;
 	swap(&(ps->b));
 	log_op(ps, "sb\n", SB);
@@ -51,7 +49,7 @@ void	sb(t_ps *ps)
 
 void	ss(t_ps *ps)
 {
-	if (ps == NULL || (has_two(ps->a) == 0 && has_two(ps->b) == 0))
+	if (has_two(ps->a) == 0 && has_two(ps->b) == 0)
 		return ;
 	swap(&(ps->a));
 	swap(&(ps->b));

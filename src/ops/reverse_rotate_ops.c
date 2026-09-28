@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 /**
- * Pasa el ultimo nodo de stack a la cima. Solo mueve: no imprime.
+ * Pasa el ultimo nodo de stack a la cima. Solo mueve: no imprime ni comprueba.
  */
 void	reverse_rotate(t_node **stack)
 {
@@ -21,8 +21,6 @@ void	reverse_rotate(t_node **stack)
 	t_node	*previous;
 	t_node	*last;
 
-	if (stack == NULL || has_two(*stack) == 0)
-		return ;
 	first = *stack;
 	last = *stack;
 	while (last->next != NULL)
@@ -41,7 +39,7 @@ void	reverse_rotate(t_node **stack)
  */
 void	rra(t_ps *ps)
 {
-	if (ps == NULL || has_two(ps->a) == 0)
+	if (has_two(ps->a) == 0)
 		return ;
 	reverse_rotate(&(ps->a));
 	log_op(ps, "rra\n", RRA);
@@ -49,7 +47,7 @@ void	rra(t_ps *ps)
 
 void	rrb(t_ps *ps)
 {
-	if (ps == NULL || has_two(ps->b) == 0)
+	if (has_two(ps->b) == 0)
 		return ;
 	reverse_rotate(&(ps->b));
 	log_op(ps, "rrb\n", RRB);
@@ -57,7 +55,7 @@ void	rrb(t_ps *ps)
 
 void	rrr(t_ps *ps)
 {
-	if (ps == NULL || (has_two(ps->a) == 0 && has_two(ps->b) == 0))
+	if (has_two(ps->a) == 0 && has_two(ps->b) == 0)
 		return ;
 	reverse_rotate(&(ps->a));
 	reverse_rotate(&(ps->b));
