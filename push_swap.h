@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/27 13:33:36 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:21:28 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,10 @@ void				small_sort(t_ps *ps);
 void				radix_sort(t_ps *ps);
 
 // FLAGS
-int					parse_flags(int argc, char **argv, t_ps *ps);
+int					parse_flags(t_ps *ps, int ac, char **av);
 
 // STACK
-int					is_sorted(t_node *a);
+int					is_sorted(t_node *stack);
 int					has_two(t_node *stack);
 int					find_size(t_node *stack);
 int					find_min(t_node *stack);
@@ -116,10 +116,10 @@ void				free_stack(t_node *stack);
 void				error_exit(t_ps *ps, char **nums);
 
 // NORMALIZE
-void				normalize(t_ps *ps);
+void				normalize(t_node *a);
 
 // DISORDER
-double				compute_disorder(t_node *a);
+double				calculate_disorder(t_node *a);
 
 // BENCH
 void				print_bench(t_ps *ps);

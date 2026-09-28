@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 20:43:48 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/26 13:34:27 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:10:29 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,12 @@ int	find_place(t_node *stack, int n)
  */
 int	find_size(t_node *stack)
 {
-	t_node	*current;
 	int		size;
 
-	current = stack;
 	size = 0;
-	while (current != NULL)
+	while (stack)
 	{
-		current = current->next;
+		stack = stack->next;
 		size++;
 	}
 	return (size);

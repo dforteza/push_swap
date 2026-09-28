@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:15:09 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/21 17:55:57 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:37:34 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@
  * @param a pila ya normalizada
  * @return de 0.0 (ordenada) a 1.0 (del reves)
  */
-double	compute_disorder(t_node *a)
+double	calculate_disorder(t_node *a)
 {
-	t_node	*i;
-	t_node	*j;
+	t_node	*tmp_i;
+	t_node	*tmp_j;
 	int		mistakes;
 	int		total;
 
 	mistakes = 0;
 	total = 0;
-	i = a;
-	while (i)
+	tmp_i = a;
+	while (tmp_i)
 	{
-		j = i->next;
-		while (j)
+		tmp_j = tmp_i->next;
+		while (tmp_j)
 		{
 			total++;
-			if (i->index > j->index)
+			if (tmp_i->index > tmp_j->index)
 				mistakes++;
-			j = j->next;
+			tmp_j = tmp_j->next;
 		}
-		i = i->next;
+		tmp_i = tmp_i->next;
 	}
 	if (total == 0)
 		return (0.0);
