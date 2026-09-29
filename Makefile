@@ -11,7 +11,8 @@ SRCS  = src/main.c src/flags.c src/parse.c src/error.c \
         src/ops/swap_ops.c src/ops/push_ops.c src/ops/rotate_ops.c \
         src/ops/reverse_rotate_ops.c src/ops/ops_utils.c \
         src/sort/sort_utils.c src/sort/selection_sort.c \
-        src/sort/chunk_sort.c src/sort/small_sort.c src/sort/radix_sort.c
+        src/sort/chunk_sort.c src/sort/small_sort.c src/sort/radix_sort.c \
+        src/sort/quicksort.c \
 
 OBJS	= $(SRCS:.c=.o)
 

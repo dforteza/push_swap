@@ -50,7 +50,7 @@ static void	run_strategy(t_ps *ps)
 	else if (ps->used == MEDIUM)
 		chunk_sort(ps);
 	else if (ps->used == COMPLEX)
-		radix_sort(ps);
+		quick_sort(ps);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/28 19:21:28 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/29 18:06:14 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define RRR 10
 # define N_OPS 11
 
+# define BOTTOM 0
+# define TOP 1
+
 # include "libft.h"
 # include <limits.h>
 
@@ -55,6 +58,13 @@ typedef struct s_ps
 	double			disorder;
 }					t_ps;
 
+typedef struct s_part
+{
+	char			stack;
+	int				pos;
+	int				size;
+}					t_part;
+
 // OPERATIONS
 void				sa(t_ps *ps);
 void				sb(t_ps *ps);
@@ -70,12 +80,6 @@ void				rr(t_ps *ps);
 void				rra(t_ps *ps);
 void				rrb(t_ps *ps);
 void				rrr(t_ps *ps);
-
-// MOVEMENTS
-void				swap(t_node **stack);
-void				rotate(t_node **stack);
-void				reverse_rotate(t_node **stack);
-void				push(t_node **src, t_node **dst);
 
 // OPS UTILS
 void				log_op(t_ps *ps, char *name, int op);
@@ -95,6 +99,9 @@ void				small_sort(t_ps *ps);
 // RADIX SORT (--complex)
 void				radix_sort(t_ps *ps);
 
+// QUICKSORT (--complex)
+void				quick_sort(t_ps *ps);
+
 // FLAGS
 int					parse_flags(t_ps *ps, int ac, char **av);
 
@@ -102,7 +109,7 @@ int					parse_flags(t_ps *ps, int ac, char **av);
 int					is_sorted(t_node *stack);
 int					has_two(t_node *stack);
 int					find_size(t_node *stack);
-int					find_min(t_node *stack);
+int					find_min(t_node *stack, int size);
 int					find_max(t_node *stack);
 int					find_place(t_node *stack, int n);
 t_node				*find_last(t_node *stack);

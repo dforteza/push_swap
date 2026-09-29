@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 20:43:48 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/28 19:10:29 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/29 18:06:30 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,18 +54,21 @@ int	find_max(t_node *stack)
  * @param stack pila no vacia
  * @return el index menor
  */
-int	find_min(t_node *stack)
+int	find_min(t_node *stack, int size)
 {
 	t_node	*current;
 	int		min;
+	int		i;
 
 	current = stack;
 	min = current->index;
-	while (current != NULL)
+	i = 0;
+	while (i < size && current != NULL)
 	{
 		if (current->index < min)
 			min = current->index;
 		current = current->next;
+		i++;
 	}
 	return (min);
 }
