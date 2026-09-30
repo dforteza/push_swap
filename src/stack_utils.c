@@ -13,22 +13,6 @@
 #include "push_swap.h"
 
 /**
- * Busca el ultimo nodo de stack.
- * @return el ultimo nodo, o NULL si esta vacia
- */
-t_node	*find_last(t_node *stack)
-{
-	t_node	*last;
-
-	if (has_two(stack) == 0)
-		return (stack);
-	last = stack;
-	while (last->next != NULL)
-		last = last->next;
-	return (last);
-}
-
-/**
  * Busca el mayor index de stack.
  * @param stack pila no vacia
  * @return el index mayor

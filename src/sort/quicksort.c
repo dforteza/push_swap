@@ -6,12 +6,16 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 14:45:45 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/29 19:23:23 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:22:45 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+/**
+ * Ordena un tramo de 1 a 3 numeros que ya esta en la cima de a.
+ * Solo usa sa, pb y pa para no mover lo que hay debajo.
+ */
 static void	sort_small_part(t_ps *ps, int size)
 {
 	if (size <= 1)
@@ -28,6 +32,9 @@ static void	sort_small_part(t_ps *ps, int size)
 	}
 }
 
+/**
+ * Sube el tramo entero a la cima de a (solo se usa en el caso base).
+ */
 static void	part_to_top(t_ps *ps, t_part part)
 {
 	int	i;
@@ -55,63 +62,65 @@ static void	part_to_top(t_ps *ps, t_part part)
 	}
 }
 
-static void	partition(t_ps *ps, int size, int pivot[2])
+/**
+ * Reparte el tramo desde su zona: cada numero va a la zona de su grupo.
+ * @param pivot limites: >= pivot[1] grande, >= pivot[0] mediano
+ * @param dest  zonas de grandes, medianos y pequenos (set_dests)
+ */
+static void	partition(t_ps *ps, t_part part, int pivot[2], t_part dest[3])
 {
-	int	i;
+	t_node	*top;
+	int		i;
 
 	i = 0;
-	while (i < size)
+	while (i < part.size)
 	{
-		if (ps->a->index >= pivot[1])
-			ra(ps);
-		else if (ps->a->index >= pivot[0])
-			pb(ps);
+		bring_node_to_top(ps, part);
+		if (part.stack == 'a')
+			top = ps->a;
 		else
-		{
-			pb(ps);
-			rb(ps);
-		}
+			top = ps->b;
+		if (top->index >= pivot[1])
+			send_to_dest(ps, part, dest[0]);
+		else if (top->index >= pivot[0])
+			send_to_dest(ps, part, dest[1]);
+		else
+			send_to_dest(ps, part, dest[2]);
 		i++;
 	}
 }
 
-t_part	new_part(char stack, int pos, int size)
-{
-	t_part	new;
-
-	new.stack = stack;
-	new.pos = pos;
-	new.size = size;
-	return (new);
-}
-
+/**
+ * Ordena un tramo y lo deja arriba de a: reparte en tres grupos por
+ * tercios de indice y ordena grandes, medianos y pequenos en ese orden.
+ */
 static void	sort_part(t_ps *ps, t_part part)
 {
-	int	pivot[2];
-	int	min;
-	int	n;
+	int		pivot[2];
+	int		min;
+	int		n;
+	t_part	dest[3];
 
-	// 1. Traer el tramo arriba de A
-	part_to_top(ps, part);
-	// 2. Si size ≤ 3: caso base y return
 	if (part.size <= 3)
 	{
+		part_to_top(ps, part);
 		sort_small_part(ps, part.size);
 		return ;
 	}
-	// 3. Calcular los pivotes
-	min = find_min(ps->a, part.size);
+	min = find_min(part_start(ps, part), part.size);
 	n = part.size / 3;
 	pivot[0] = min + n;
 	pivot[1] = min + 2 * n;
-	// 4. Pasada (repartir en tres grupos)
-	partition(ps, part.size, pivot);
-	// 5. Recursión (grandes, medianos, pequeños)
-	sort_part(ps, new_part('a', BOTTOM, part.size - 2 * n));
-	sort_part(ps, new_part('b', TOP, n));
-	sort_part(ps, new_part('b', BOTTOM, n));
+	set_dests(part, n, dest);
+	partition(ps, part, pivot, dest);
+	sort_part(ps, dest[0]);
+	sort_part(ps, dest[1]);
+	sort_part(ps, dest[2]);
 }
 
+/**
+ * Ordena a con quicksort de dos pivotes (--complex, O(n log n)).
+ */
 void	quick_sort(t_ps *ps)
 {
 	t_part	stack_a;

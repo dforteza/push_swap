@@ -32,15 +32,15 @@
 | sáb 19 | Colchón | Programar y probar `flags.c` → empezar parseo | (si hace falta) | ✅ |
 | dom 20 | Colchón | `parse.c` terminado (norminette OK) | Operaciones escritas (`feat/movements`) | ✅ |
 | lun 21 | — | Errores + normalizar + desorden (adelantado del mar 22) | Operaciones pusheadas el dom 20, sin probar | ✅ |
-| mar 22 | Revisar y mergear `feat/movements` y `feat/flags` | `--simple` | Camino corto + casos pequeños 2-5 | ⬜ |
-| mié 23 | — | `--medium` (chunks) | `--complex` (radix) | ⬜ |
+| mar 22 | Revisar y mergear `feat/movements` y `feat/flags` | `--simple` | Camino corto + casos pequeños 2-5 | ✅ |
+| mié 23 | — | `--medium` (chunks) | `--complex` (radix, sustituido por quicksort el 30-09) | ✅ |
 | jue 24 | `--adaptive` (+ n ≤ 5) | Defensa GNL + revisar lo de B | O(n) (comprobación + una vuelta) | ⬜ |
 | vie 25 | `--bench` + script de medir | — | — | ⬜ |
 | sáb 26 | Colchón | — | — | ⬜ |
 | dom 27 | Colchón | — | — | ⬜ |
-| lun 28 | Quicksort / optimizar hasta el excelente + análisis de complejidad | — | — | ⬜ |
-| mar 29 | README, Norma, leaks, repaso de defensa | — | — | ⬜ |
-| **mié 30** | **Objetivo** | — | — | ⬜ |
+| lun 28 | Repaso completo del proyecto (quicksort pasa al 29) | — | — | ✅ |
+| mar 29 | Quicksort sencillo (100 ≈ 980 · 500 ≈ 6810) | — | — | ✅ |
+| **mié 30** | **Objetivo** → quicksort optimizado (100 ≈ 722 · 500 ≈ 4677); fecha flexible | — | — | 🟨 |
 
 Estados: ⬜ pendiente · 🟨 en curso · ✅ hecho · 🟥 retrasado
 
@@ -86,24 +86,24 @@ Estados: ⬜ pendiente · 🟨 en curso · ✅ hecho · 🟥 retrasado
 - [x] [A] Liberar todo y salir con `Error` (decisión 15), valgrind limpio también en error → `error_exit` + `free_stack` + `free_split`
 - [x] [A] Normalizar a índices (decisión 8) → `normalize`, probada con extremos `INT_MIN`/`INT_MAX`
 - [x] [A] Cálculo del índice de desorden (decisión 2) → `compute_disorder`; falta imprimirlo en % (decisión 11, va con `--bench`)
-- [ ] [A] `--simple` (selección) da `OK` en el checker
+- [x] [A] `--simple` (selección) da `OK` en el checker
 - [x] [B] Funciones internas que solo mueven (decisión 10) → `swap`, `push`, `rotate`, `reverse_rotate` en `feat/movements` (sin mergear)
-- [ ] [B] Las 11 operaciones con contadores, probadas una a una → 🟨 escritas en `feat/movements`; pendientes de revisión y de probar
-- [ ] [B] Camino corto (`ra`/`rra`), una sola función (decisión 18)
-- [ ] [B] Casos pequeños 2, 3, 4 y 5 dan `OK` (decisiones 16 y 18)
+- [x] [B] Las 11 operaciones con contadores, probadas una a una
+- [x] [B] Camino corto (`ra`/`rra`), una sola función (decisión 18)
+- [x] [B] Casos pequeños 2, 3, 4 y 5 dan `OK` (decisiones 16 y 18)
 
 ### 4. Algoritmos
-- [ ] [A] `--medium` (chunks) OK
-- [ ] [B] `--complex` (radix) OK
+- [x] [A] `--medium` (chunks) OK
+- [x] [Juntos] `--complex` (quicksort de 2 pivotes, decisión 14) OK · radix eliminado el 30-09
 - [ ] [B] O(n): comprobación + una vuelta, con plan B a chunks (decisión 17)
-- [ ] [Juntos] `--adaptive` (y sin flag) elige según el desorden; n ≤ 5 → casos pequeños (decisión 19)
+- [x] [Juntos] `--adaptive` (y sin flag) elige según el desorden; n ≤ 5 → casos pequeños (decisión 19)
 
 ### 5. Complejidad y rendimiento
-- [ ] [Juntos] `--bench` por stderr: desorden, estrategia, total y operaciones por tipo
+- [x] [Juntos] `--bench` por stderr: desorden, estrategia, total y operaciones por tipo
 - [ ] [Juntos] Script para medir: N ejecuciones aleatorias con 100 y 500 números (media y peor caso)
-- [ ] [Juntos] Quicksort con mediana por índices (decisión 14) si radix no llega al excelente
-- [ ] [Juntos] 100 números < 700 en el peor caso
-- [ ] [Juntos] 500 números < 5500 en el peor caso
+- [x] [Juntos] Quicksort (decisión 14): repartir cada tramo desde su zona, sin subirlo antes a `a`
+- [ ] [Juntos] 100 números < 700 en el peor caso → 🟨 media 722, peor 740 (quedan: caso base desde cualquier zona y `rr`/`rrr`)
+- [x] [Juntos] 500 números < 5500 en el peor caso → media 4677, peor 4702
 - [ ] [Juntos] Cada flag funciona con cualquier tamaño y desorden
 - [ ] [Juntos] Complejidad (tiempo y espacio) de cada algoritmo en operaciones, explicada con vuestras palabras
 - [ ] [Juntos] Umbrales justificados con mediciones
@@ -168,6 +168,7 @@ Provisionales (16-09):
 12. (17-09) **`--simple` O(n²) = selección (sacar el mínimo)**: rotar `a` (`ra`/`rra`) hasta subir el menor → `pb` → repetir hasta vaciar `a` → `pa` hasta vaciar `b`. Motivo: es la que mejor se traduce a pilas (burbuja necesita `sa` en medio de la pila → muchas rotaciones; inserción necesita rotar `b` al hueco y deshacer). Complejidad: n búsquedas × hasta n rotaciones = O(n²).
 13. (17-09) **`--medium` O(n√n) = chunks (bloques)**: selección mejorada. Bloques de ≈ √n índices (0..√n-1 = pequeños, etc.; son etiquetas, no pilas). **Ida:** si la cima de `a` es del bloque actual → `pb`, si no → `ra`; al completar el bloque, siguiente bloque → `b` queda por capas (pequeños abajo, grandes arriba, sin ordenar dentro). **Vuelta:** sacar el mayor de `b` (`rb`/`rrb` por el camino corto, o `sb` si es el segundo) → `pa`. Complejidad: n números × ≈ √n rotaciones. Ejemplo n = 9: 13 + 16 = 29 ops.
 14. (17-09) **`--complex` O(n log n) = radix LSD binario sobre índices** (seguro, "bueno": ~1084 con 100 y ~6784 con 500). Pasada `i` (de 0 a bits de n-1): para cada uno de los n elementos, `(índice >> i) & 1` → 0: `pb`, 1: `ra`; luego `pa` hasta vaciar `b`. Funciona porque cada pasada es **estable** (respeta el orden previo entre los de igual bit). Complejidad: log n pasadas × ~n ops. Descartados: heap sort y árbol binario indexado (no se traducen a pilas); merge sort (demasiado enrevesado). **Mejora para el excelente (Fase 5): quicksort con pilas** usando como pivote la mediana exacta por índices (siempre parte en mitades → O(n log n) garantizado). Si no llega a tiempo, se entrega con radix.
+   - **Actualización (29/30-09): `--complex` = quicksort de 2 pivotes; radix eliminado.** Pivotes por tercios de índice (`min + n`, `min + 2n`, con `n = size / 3`) → grandes, medianos y pequeños. Un **tramo** = pila + zona (TOP/BOTTOM) + tamaño. Invariante: cada llamada deja su tramo ordenado arriba de `a` (por eso se ordenan grandes → medianos → pequeños). Caso base: tamaño ≤ 3 (se sube a la cima de `a` y se ordena con `sa`/`pb`/`pa`). **Optimización (30-09)**: se reparte el tramo **desde su zona**, sin subirlo antes a `a`. Regla de los 4 sitios: el tramo ocupa uno; grandes → `a`, pequeños → `b`, medianos → el sitio que sobra. Coste de repartir un tramo de `b` TOP: antes `s + g + m + 2p ≈ 2,3·s`, ahora `g + 2m + p ≈ 1,3·s` (se ahorra 1 op por número en cada nivel). Resultado: 100 → 980 a 722, 500 → 6810 a 4677.
 15. (17-09) **Memoria**: 2 reservas. (1) **Nodos**: duran todo el programa, se liberan al final. (2) **Resultado de `ft_split`**: temporal, se libera al terminar de convertir cada `argv[i]`. **Camino de error** (número inválido o `malloc` fallido): una función que libera el split en curso + pilas `a` y `b` (vía struct principal) → `Error\n` por stderr → `exit`. `exit` no libera nada: valgrind 0 leaks también en error.
 16. (17-09, parcial) **Ordenar 3** (índices relativos 0-1-2, máx. 2 ops, sin usar `b`): `0 1 2` → nada · `1 0 2` → `sa` · `2 0 1` → `ra` · `1 2 0` → `rra` · `0 2 1` → `rra sa` · `2 1 0` → `sa rra` (o `ra sa`). **Método para programar**: 1) llevar el mayor abajo (arriba → `ra`, en medio → `rra`, abajo → nada); 2) si los dos de arriba están al revés → `sa`. **Para qué**: los algoritmos grandes desperdician ops con listas pequeñas (radix con `2 1 0` = 9 ops) y ordenar 3 es pieza de ordenar 5 (`pb pb` los 2 menores → ordenar 3 → `pa pa`). Pendiente: 2 números y 5 números.
 
@@ -203,6 +204,13 @@ Plantilla (copiar arriba del todo cada día):
 - Mañana:
 - ¿Voy en plazo?: sí / no → ajuste:
 ```
+
+### 30-09-2026 · Fase: Complejidad y rendimiento · Horas: _
+- Hecho: raíz del problema del quicksort sencillo entendida con trazas a mano (ejemplo de 9 y tramo de 6 en `b`): el paso "subir el tramo a la cima de `a`" hacía `rra`/`rrb` inútiles y la ida y vuelta `b → a → b` de medianos y pequeños. Optimización: repartir desde cualquier zona. Nuevas en `src/sort/quicksort_utils.c`: `new_part`, `part_start` (primer nodo del tramo, para `find_min`), `bring_node_to_top`, `send_to_dest` y `set_dests` (tabla de destinos). `partition` recibe tramo + pivotes + destinos; recursión `sort_part(ps, dest[i])`. Radix y `find_last` eliminados; `.h` reordenado por el flujo del programa. Norminette OK, checker 20/20 en 3, 5, 10, 100 y 500, valgrind limpio.
+- Conceptos aclarados: por qué la llamada de los grandes va con BOTTOM (`ra` los deja debajo de lo ya ordenado); coste por fórmula (antes ≈ 2,3·s, ahora ≈ 1,3·s); los 4 sitios.
+- Bloqueos / dudas: 100 aún en 722 (> 700).
+- Mañana: commit; caso base desde cualquier zona y/o `rr`/`rrr` para bajar de 700; O(n) de la adaptativa (ahora imprime `TBD...`).
+- ¿Voy en plazo?: fecha objetivo flexible → falta 100 < 700, O(n), README y defensa.
 
 ### 21-09-2026 · Fase: Base · Horas: _
 - Hecho: `error.c` cerrado → `free_stack` (bucle con `tmp` antes del `free`) y `error_exit` (libera split si lo hay + las dos pilas, `Error\n` por stderr con `ft_putstr_fd`, `exit(1)`). `main.c` limpiado (norminette OK) y conectado: flags → `parse_numbers` → `normalize` → `is_sorted` → `compute_disorder`. Batería de 22 casos de parseo pasada (válidos, comillas, `+3`, duplicados `7 007` y `0 -0`, desbordes, basura, vacíos) y valgrind limpio también en los caminos de error. `normalize.c` (índices por conteo de menores, O(n²)), `stack.c` con `is_sorted` (compara por `index`) y `disorder.c` con `compute_disorder`. `feat/flags` mergeada a `main` por PR #1.

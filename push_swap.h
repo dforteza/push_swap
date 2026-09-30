@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 16:23:56 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/29 18:06:14 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/30 18:47:56 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,31 @@ typedef struct s_part
 	int				size;
 }					t_part;
 
+// FLAGS
+int					parse_flags(t_ps *ps, int ac, char **av);
+
+// PARSING
+void				parse_numbers(t_ps *ps, int ac, char **av, int i);
+
+// ERRORS
+void				free_split(char **nums);
+void				free_stack(t_node *stack);
+void				error_exit(t_ps *ps, char **nums);
+
+// NORMALIZE
+void				normalize(t_node *a);
+
+// DISORDER
+double				calculate_disorder(t_node *a);
+
+// STACK
+int					is_sorted(t_node *stack);
+int					has_two(t_node *stack);
+int					find_size(t_node *stack);
+int					find_min(t_node *stack, int size);
+int					find_max(t_node *stack);
+int					find_place(t_node *stack, int n);
+
 // OPERATIONS
 void				sa(t_ps *ps);
 void				sb(t_ps *ps);
@@ -87,46 +112,22 @@ void				log_op(t_ps *ps, char *name, int op);
 // SORT UTILS
 void				move_to_top(t_ps *ps, char name, int p);
 
+// SMALL SORT (5 o menos)
+void				small_sort(t_ps *ps);
+
 // SELECTION SORT (--simple)
 void				selection_sort(t_ps *ps);
 
 // CHUNK SORT (--medium)
 void				chunk_sort(t_ps *ps);
 
-// SMALL SORT (5 o menos)
-void				small_sort(t_ps *ps);
-
-// RADIX SORT (--complex)
-void				radix_sort(t_ps *ps);
-
 // QUICKSORT (--complex)
 void				quick_sort(t_ps *ps);
-
-// FLAGS
-int					parse_flags(t_ps *ps, int ac, char **av);
-
-// STACK
-int					is_sorted(t_node *stack);
-int					has_two(t_node *stack);
-int					find_size(t_node *stack);
-int					find_min(t_node *stack, int size);
-int					find_max(t_node *stack);
-int					find_place(t_node *stack, int n);
-t_node				*find_last(t_node *stack);
-
-// PARSING
-void				parse_numbers(t_ps *ps, int ac, char **av, int i);
-
-// ERRORS
-void				free_split(char **nums);
-void				free_stack(t_node *stack);
-void				error_exit(t_ps *ps, char **nums);
-
-// NORMALIZE
-void				normalize(t_node *a);
-
-// DISORDER
-double				calculate_disorder(t_node *a);
+t_part				new_part(char stack, int pos, int size);
+t_node				*part_start(t_ps *ps, t_part part);
+void				bring_node_to_top(t_ps *ps, t_part part);
+void				send_to_dest(t_ps *ps, t_part src, t_part dest);
+void				set_dests(t_part src, int n, t_part dest[3]);
 
 // BENCH
 void				print_bench(t_ps *ps);
