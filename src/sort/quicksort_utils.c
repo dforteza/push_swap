@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 17:11:54 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/30 19:29:17 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/30 19:58:14 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ void	send_to_dest(t_ps *ps, t_part src, t_part dest)
 void	set_dests(t_part src, int n, t_part dest[3])
 {
 	dest[0].stack = 'a';
-	dest[0].pos = TOP;
 	if (src.stack == 'a' && src.pos == TOP)
 		dest[0].pos = BOTTOM;
+	else
+		dest[0].pos = TOP;
 	dest[0].size = src.size - 2 * n;
 	if (src.stack == 'a')
 	{
@@ -114,8 +115,9 @@ void	set_dests(t_part src, int n, t_part dest[3])
 	}
 	dest[1].size = n;
 	dest[2].stack = 'b';
-	dest[2].pos = BOTTOM;
 	if (src.stack == 'b' && src.pos == BOTTOM)
 		dest[2].pos = TOP;
+	else
+		dest[2].pos = BOTTOM;
 	dest[2].size = n;
 }

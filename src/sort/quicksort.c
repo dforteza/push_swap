@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 14:45:45 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/30 19:22:45 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/30 20:14:30 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,25 @@ static void	partition(t_ps *ps, t_part part, int pivot[2], t_part dest[3])
 static void	sort_part(t_ps *ps, t_part part)
 {
 	int		pivot[2];
-	int		min;
 	int		n;
 	t_part	dest[3];
-
+	t_node	*stack;
+	
+	if (part.stack == 'a')
+		stack = ps->a;
+	else
+		stack = ps->b;
+	if (part.pos == BOTTOM && part.size == find_size(stack))
+		part.pos = TOP;
 	if (part.size <= 3)
 	{
 		part_to_top(ps, part);
 		sort_small_part(ps, part.size);
 		return ;
 	}
-	min = find_min(part_start(ps, part), part.size);
 	n = part.size / 3;
-	pivot[0] = min + n;
-	pivot[1] = min + 2 * n;
+	pivot[0] = find_min(part_start(ps, part), part.size) + n;
+	pivot[1] = find_min(part_start(ps, part), part.size) + 2 * n;
 	set_dests(part, n, dest);
 	partition(ps, part, pivot, dest);
 	sort_part(ps, dest[0]);
