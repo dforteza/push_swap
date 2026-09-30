@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:15:04 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/20 14:44:13 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 17:10:24 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	read_flag(t_ps *ps, char *arg)
  * Lee los flags del principio de av; sin estrategia, usa ADAPTIVE.
  * @return posicion del primer numero en av, o -1 si hay error
  */
-int	parse_flags(int ac, char **av, t_ps *ps)
+int	parse_flags(t_ps *ps, int ac, char **av)
 {
 	int	i;
 

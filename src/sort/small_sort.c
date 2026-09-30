@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   small_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: beatrizdocarmo <beatrizdocarmo@student.    +#+  +:+       +#+        */
+/*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/20 22:50:00 by beatrizdoca       #+#    #+#             */
-/*   Updated: 2026/09/24 23:42:52 by beatrizdoca      ###   ########.fr       */
+/*   Updated: 2026/09/29 18:07:36 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	sort_three(t_ps *ps)
  */
 static void	sort_four(t_ps *ps)
 {
-	move_to_top(ps, 'a', find_place(ps->a, find_min(ps->a)));
+	move_to_top(ps, 'a', find_place(ps->a, find_min(ps->a, find_size(ps->a))));
 	pb(ps);
 	sort_three(ps);
 	pa(ps);

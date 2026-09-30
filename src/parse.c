@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:15:15 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/20 14:42:00 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:37:02 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static long	ft_atol(char *str)
 	while (ft_isdigit(str[i]))
 	{
 		res = res * 10 + (str[i] - '0');
-		if (res > 2147483648L)
+		if (res > INT_MAX)
 			break ;
 		i++;
 	}
@@ -88,7 +88,7 @@ static int	is_duplicate(t_node *a, long n)
 static void	add_node(t_ps *ps, char **nums, long n)
 {
 	t_node	*new;
-	t_node	*temp;
+	t_node	*tmp;
 
 	new = malloc(sizeof(t_node));
 	if (!new)
@@ -100,10 +100,10 @@ static void	add_node(t_ps *ps, char **nums, long n)
 		ps->a = new;
 	else
 	{
-		temp = ps->a;
-		while (temp->next)
-			temp = temp->next;
-		temp->next = new;
+		tmp = ps->a;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
 	}
 }
 
@@ -125,12 +125,12 @@ void	parse_numbers(t_ps *ps, int ac, char **av, int i)
 		j = 0;
 		while (nums[j])
 		{
-			if (!is_valid(nums[j]))
+			if (is_valid(nums[j]) == 0)
 				error_exit(ps, nums);
 			n = ft_atol(nums[j]);
-			if (n < INT_MIN || n > INT_MAX)
+			if (!(n >= INT_MIN && n <= INT_MAX))
 				error_exit(ps, nums);
-			if (is_duplicate(ps->a, n))
+			if (is_duplicate(ps->a, n) == 1)
 				error_exit(ps, nums);
 			add_node(ps, nums, n);
 			j++;

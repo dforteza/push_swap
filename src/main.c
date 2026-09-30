@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:10:01 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/27 20:32:22 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:25:16 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	run_strategy(t_ps *ps)
 	else if (ps->used == MEDIUM)
 		chunk_sort(ps);
 	else if (ps->used == COMPLEX)
-		radix_sort(ps);
+		quick_sort(ps);
 }
 
 /**
@@ -64,18 +64,21 @@ int	main(int ac, char **av)
 
 	ft_bzero(&ps, sizeof(ps));
 	ps.strategy = NONE;
-	i = parse_flags(ac, av, &ps);
+	i = parse_flags(&ps, ac, av);
 	if (i == -1)
 		error_exit(&ps, NULL);
 	parse_numbers(&ps, ac, av, i);
-	normalize(&ps);
-	ps.disorder = compute_disorder(ps.a);
-	choose_strategy(&ps);
-	if (!is_sorted(ps.a))
-		run_strategy(&ps);
-	if (ps.bench == 1)
-		print_bench(&ps);
-	free_stack(ps.a);
-	free_stack(ps.b);
+	if (ps.a)
+	{
+		normalize(ps.a);
+		ps.disorder = calculate_disorder(ps.a);
+		choose_strategy(&ps);
+		if (!is_sorted(ps.a))
+			run_strategy(&ps);
+		if (ps.bench == 1)
+			print_bench(&ps);
+		free_stack(ps.a);
+		free_stack(ps.b);
+	}
 	return (0);
 }

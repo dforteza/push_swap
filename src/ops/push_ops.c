@@ -13,14 +13,12 @@
 #include "push_swap.h"
 
 /**
- * Pasa la cima de src a la cima de dst. Solo mueve: no imprime.
+ * Pasa la cima de src a la cima de dst. Solo mueve: no imprime ni comprueba.
  */
 void	push(t_node **src, t_node **dst)
 {
 	t_node	*target;
 
-	if (src == NULL || *src == NULL || dst == NULL)
-		return ;
 	target = *src;
 	*src = target->next;
 	target->next = *dst;
@@ -33,7 +31,7 @@ void	push(t_node **src, t_node **dst)
  */
 void	pa(t_ps *ps)
 {
-	if (ps == NULL || ps->b == NULL)
+	if (ps->b == NULL)
 		return ;
 	push(&(ps->b), &(ps->a));
 	log_op(ps, "pa\n", PA);
@@ -41,7 +39,7 @@ void	pa(t_ps *ps)
 
 void	pb(t_ps *ps)
 {
-	if (ps == NULL || ps->a == NULL)
+	if (ps->a == NULL)
 		return ;
 	push(&(ps->a), &(ps->b));
 	log_op(ps, "pb\n", PB);

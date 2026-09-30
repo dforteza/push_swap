@@ -13,15 +13,13 @@
 #include "push_swap.h"
 
 /**
- * Pasa la cima de stack al final. Solo mueve: no imprime.
+ * Pasa la cima de stack al final. Solo mueve: no imprime ni comprueba.
  */
 void	rotate(t_node **stack)
 {
 	t_node	*first;
 	t_node	*last;
 
-	if (stack == NULL || has_two(*stack) == 0)
-		return ;
 	first = *stack;
 	*stack = first->next;
 	first->next = NULL;
@@ -37,7 +35,7 @@ void	rotate(t_node **stack)
  */
 void	ra(t_ps *ps)
 {
-	if (ps == NULL || has_two(ps->a) == 0)
+	if (has_two(ps->a) == 0)
 		return ;
 	rotate(&(ps->a));
 	log_op(ps, "ra\n", RA);
@@ -45,7 +43,7 @@ void	ra(t_ps *ps)
 
 void	rb(t_ps *ps)
 {
-	if (ps == NULL || has_two(ps->b) == 0)
+	if (has_two(ps->b) == 0)
 		return ;
 	rotate(&(ps->b));
 	log_op(ps, "rb\n", RB);
@@ -53,7 +51,7 @@ void	rb(t_ps *ps)
 
 void	rr(t_ps *ps)
 {
-	if (ps == NULL || (has_two(ps->a) == 0 && has_two(ps->b) == 0))
+	if (has_two(ps->a) == 0 && has_two(ps->b) == 0)
 		return ;
 	rotate(&(ps->a));
 	rotate(&(ps->b));

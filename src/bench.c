@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/27 14:00:00 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/27 20:28:03 by difortez         ###   ########.fr       */
+/*   Updated: 2026/09/28 19:35:25 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@
  */
 static char	*strategy_name(int used)
 {
+	char	*strategy;
+
 	if (used == SMALL)
-		return ("small O(1)");
-	if (used == LINEAR)
-		return ("linear O(n)");
-	if (used == SIMPLE)
-		return ("simple O(n^2)");
-	if (used == MEDIUM)
-		return ("medium O(n*sqrt(n))");
-	if (used == COMPLEX)
-		return ("complex O(n*log(n))");
-	return ("unknown");
+		strategy = "small O(1)";
+	else if (used == LINEAR)
+		strategy = "linear O(n)";
+	else if (used == SIMPLE)
+		strategy = "simple O(n^2)";
+	else if (used == MEDIUM)
+		strategy = "medium O(n*sqrt(n))";
+	else if (used == COMPLEX)
+		strategy = "complex O(n*log(n))";
+	else
+		strategy = "unknown";
+	return (strategy);
 }
 
 /**
