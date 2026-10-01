@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/27 14:00:00 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/28 19:35:25 by difortez         ###   ########.fr       */
+/*   Updated: 2026/10/01 22:30:54 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ void	print_bench(t_ps *ps)
 {
 	print_disorder(ps->disorder);
 	ft_putstr_fd("[bench] strategy: ", 2);
+	if (ps->strategy == ADAPTIVE)
+		ft_putstr_fd("adaptive -> ", 2);
 	ft_putendl_fd(strategy_name(ps->used), 2);
 	ft_putstr_fd("[bench] total operations: ", 2);
 	ft_putnbr_fd(total_ops(ps), 2);
