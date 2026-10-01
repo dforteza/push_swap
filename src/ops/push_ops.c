@@ -15,7 +15,7 @@
 /**
  * Pasa la cima de src a la cima de dst. Solo mueve: no imprime ni comprueba.
  */
-void	push(t_node **src, t_node **dst)
+static void	push(t_node **src, t_node **dst)
 {
 	t_node	*target;
 

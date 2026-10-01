@@ -15,7 +15,7 @@
 /**
  * Pasa la cima de stack al final. Solo mueve: no imprime ni comprueba.
  */
-void	rotate(t_node **stack)
+static void	rotate(t_node **stack)
 {
 	t_node	*first;
 	t_node	*last;
