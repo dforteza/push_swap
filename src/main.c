@@ -6,12 +6,11 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/18 17:10:01 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/28 19:25:16 by difortez         ###   ########.fr       */
+/*   Updated: 2026/10/01 22:16:27 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
 
 /**
  * Apunta en ps->used el algoritmo que toca segun n, flag y desorden.
@@ -28,8 +27,6 @@ static void	choose_strategy(t_ps *ps)
 		{
 			if (ps->disorder < 0.2)
 				ps->used = LINEAR;
-			else if (ps->disorder < 0.5)
-				ps->used = MEDIUM;
 			else
 				ps->used = COMPLEX;
 		}
