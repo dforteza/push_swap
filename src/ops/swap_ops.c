@@ -15,7 +15,7 @@
 /**
  * Intercambia los dos primeros nodos. Solo mueve: no imprime ni comprueba.
  */
-void	swap(t_node **stack)
+static void	swap(t_node **stack)
 {
 	t_node	*first;
 	t_node	*second;

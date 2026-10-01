@@ -15,7 +15,7 @@
 /**
  * Pasa el ultimo nodo de stack a la cima. Solo mueve: no imprime ni comprueba.
  */
-void	reverse_rotate(t_node **stack)
+static void	reverse_rotate(t_node **stack)
 {
 	t_node	*first;
 	t_node	*previous;

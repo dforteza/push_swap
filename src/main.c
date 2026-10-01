@@ -44,7 +44,7 @@ static void	run_strategy(t_ps *ps)
 	if (ps->used == SMALL)
 		small_sort(ps);
 	else if (ps->used == LINEAR)
-		printf("TBD...");
+		sort_little_chaos(ps);
 	else if (ps->used == SIMPLE)
 		selection_sort(ps);
 	else if (ps->used == MEDIUM)

@@ -100,7 +100,7 @@ static void	sort_part(t_ps *ps, t_part part)
 	int		n;
 	t_part	dest[3];
 	t_node	*stack;
-	
+
 	if (part.stack == 'a')
 		stack = ps->a;
 	else
@@ -128,7 +128,7 @@ static void	sort_part(t_ps *ps, t_part part)
  */
 void	quick_sort(t_ps *ps)
 {
-	t_part	stack_a;
+	t_part stack_a;
 
 	stack_a = new_part('a', TOP, find_size(ps->a));
 	sort_part(ps, stack_a);

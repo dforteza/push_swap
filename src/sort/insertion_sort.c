@@ -12,21 +12,28 @@
 
 #include "push_swap.h"
 
-//si meterla en sort_utils
-int	last_index(t_node *stack)
+/**
+ * Devuelve el index del ultimo nodo de stack (pila no vacia).
+ */
+static int	last_index(t_node *stack)
 {
-	t_node	*last;
-
-	last = find_last(stack);
-	return (last->index);
+	while (stack->next != NULL)
+		stack = stack->next;
+	return (stack->index);
 }
 
-int	find_order(t_node *stack, int n)
+/**
+ * Busca el index de b que debe quedar justo debajo de n para que b siga
+ * ordenada de mayor a menor.
+ * @return el mayor index menor que n, o el maximo de b si n es nuevo
+ *         maximo o nuevo minimo
+ */
+static int	find_order(t_node *stack, int n)
 {
 	t_node	*current;
 	int		where_to;
 
-	if (n > find_max(stack) || n < find_min(stack))
+	if (n > find_max(stack) || n < find_min(stack, find_size(stack)))
 		return (find_max(stack));
 	current = stack;
 	where_to = -1;
@@ -39,7 +46,10 @@ int	find_order(t_node *stack, int n)
 	return (where_to);
 }
 
-void	order_chaos(t_ps *ps)
+/**
+ * Pasa la cima de a a b en su sitio, para que b siga de mayor a menor.
+ */
+static void	order_chaos(t_ps *ps)
 {
 	int	where_to;
 
@@ -59,7 +69,11 @@ void	order_chaos(t_ps *ps)
 	}
 }
 
-void	push_chaos(t_ps *ps)
+/**
+ * Recorre a una vez: deja en a los que van en orden creciente (ra) y manda
+ * a b los que estorban.
+ */
+static void	push_chaos(t_ps *ps)
 {
 	int	current_max;
 	int	size;
@@ -83,8 +97,10 @@ void	push_chaos(t_ps *ps)
 	}
 }
 
-//first y last están ahí por entender más rápido al leer
-//que también pueden no estar
+/**
+ * Ordena a cuando hay poco desorden: separa los que estorban en b y luego
+ * mete cada uno en su hueco de a. Coste O(n * k), k = numeros que van a b.
+ */
 void	sort_little_chaos(t_ps *ps)
 {
 	int	first;

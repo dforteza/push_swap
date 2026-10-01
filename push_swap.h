@@ -118,6 +118,9 @@ void				small_sort(t_ps *ps);
 // SELECTION SORT (--simple)
 void				selection_sort(t_ps *ps);
 
+// LITTLE CHAOS (desorden < 0,2)
+void				sort_little_chaos(t_ps *ps);
+
 // CHUNK SORT (--medium)
 void				chunk_sort(t_ps *ps);
 
