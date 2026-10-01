@@ -24,7 +24,7 @@ $(NAME) : $(LIBFT) $(OBJS)
 $(LIBFT) :
 	make -C libft
 
-%.o : %.c
+%.o : %.c push_swap.h
 	$(CC) $(CFLAGS) -I. -Ilibft -c $< -o $@
 
 clean :
