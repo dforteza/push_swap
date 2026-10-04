@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 18:12:29 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/26 13:47:28 by difortez         ###   ########.fr       */
+/*   Updated: 2026/10/04 13:10:10 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	block_size(int n)
 	int	i;
 
 	i = 1;
-	while ((i + 1) * (i + 1) <= n)
+	while (i * i <= n)
 		i++;
-	return (i);
+	return (i - 1);
 }
 
 /**
@@ -59,15 +59,15 @@ static void	push_blocks(t_ps *ps)
  */
 void	chunk_sort(t_ps *ps)
 {
-	int	m;
+	int	max;
+	int	p;
 
-	if (ps == NULL)
-		return ;
 	push_blocks(ps);
 	while (ps->b != NULL)
 	{
-		m = find_max(ps->b);
-		move_to_top(ps, 'b', find_place(ps->b, m));
+		max = find_max(ps->b);
+		p = find_place(ps->b, max);
+		move_to_top(ps, 'b', p);
 		pa(ps);
 	}
 }

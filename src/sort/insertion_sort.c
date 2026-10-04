@@ -53,7 +53,7 @@ static void	order_chaos(t_ps *ps)
 {
 	int	where_to;
 
-	if (ps == NULL || ps->a == NULL)
+	if (ps->a == NULL)
 		return ;
 	if (find_size(ps->b) < 2)
 	{
@@ -79,7 +79,7 @@ static void	push_chaos(t_ps *ps)
 	int	size;
 	int	i;
 
-	if (ps == NULL || ps->a == NULL)
+	if (ps->a == NULL)
 		return ;
 	size = find_size(ps->a);
 	i = 0;
@@ -106,7 +106,7 @@ void	sort_little_chaos(t_ps *ps)
 	int	first;
 	int	last;
 
-	if (ps == NULL || has_two(ps->a) == 0)
+	if (has_two(ps->a) == 0)
 		return ;
 	move_to_top(ps, 'a', find_place(ps->a, 0));
 	push_chaos(ps);

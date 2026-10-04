@@ -6,7 +6,7 @@
 /*   By: difortez <difortez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/29 14:45:45 by difortez          #+#    #+#             */
-/*   Updated: 2026/09/30 20:14:30 by difortez         ###   ########.fr       */
+/*   Updated: 2026/10/04 17:49:05 by difortez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,19 @@ static void	part_to_top(t_ps *ps, t_part part)
 {
 	int	i;
 
-	if (part.stack == 'a' && part.pos == BOTTOM)
+	i = 0;
+	while (i < part.size)
 	{
-		i = -1;
-		while (++i < part.size)
+		if (part.stack == 'a' && part.pos == BOTTOM)
 			rra(ps);
-	}
-	else if (part.stack == 'b' && part.pos == TOP)
-	{
-		i = -1;
-		while (++i < part.size)
+		else if (part.stack == 'b' && part.pos == TOP)
 			pa(ps);
-	}
-	else if (part.stack == 'b' && part.pos == BOTTOM)
-	{
-		i = -1;
-		while (++i < part.size)
+		else if (part.stack == 'b' && part.pos == BOTTOM)
 		{
 			rrb(ps);
 			pa(ps);
 		}
+		i++;
 	}
 }
 
@@ -128,7 +121,7 @@ static void	sort_part(t_ps *ps, t_part part)
  */
 void	quick_sort(t_ps *ps)
 {
-	t_part stack_a;
+	t_part	stack_a;
 
 	stack_a = new_part('a', TOP, find_size(ps->a));
 	sort_part(ps, stack_a);
