@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Ordena a por seleccion (--simple, O(n^2)).
- * Pasa a b siempre el minimo de a y al final lo devuelve todo con pa.
- */
 void	selection_sort(t_ps *ps)
 {
 	int	min;

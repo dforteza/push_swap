@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Ordena un tramo de 1 a 3 numeros que ya esta en la cima de a.
- * Solo usa sa, pb y pa para no mover lo que hay debajo.
- */
 static void	sort_small_part(t_ps *ps, int size)
 {
 	if (size <= 1)
@@ -32,9 +28,6 @@ static void	sort_small_part(t_ps *ps, int size)
 	}
 }
 
-/**
- * Sube el tramo entero a la cima de a (solo se usa en el caso base).
- */
 static void	part_to_top(t_ps *ps, t_part part)
 {
 	int	i;
@@ -55,11 +48,6 @@ static void	part_to_top(t_ps *ps, t_part part)
 	}
 }
 
-/**
- * Reparte el tramo desde su zona: cada numero va a la zona de su grupo.
- * @param pivot limites: >= pivot[1] grande, >= pivot[0] mediano
- * @param dest  zonas de grandes, medianos y pequenos (set_dests)
- */
 static void	partition(t_ps *ps, t_part part, int pivot[2], t_part dest[3])
 {
 	t_node	*top;
@@ -83,10 +71,6 @@ static void	partition(t_ps *ps, t_part part, int pivot[2], t_part dest[3])
 	}
 }
 
-/**
- * Ordena un tramo y lo deja arriba de a: reparte en tres grupos por
- * tercios de indice y ordena grandes, medianos y pequenos en ese orden.
- */
 static void	sort_part(t_ps *ps, t_part part)
 {
 	int		pivot[2];
@@ -116,9 +100,6 @@ static void	sort_part(t_ps *ps, t_part part)
 	sort_part(ps, dest[2]);
 }
 
-/**
- * Ordena a con quicksort de dos pivotes (--complex, O(n log n)).
- */
 void	quick_sort(t_ps *ps)
 {
 	t_part	stack_a;

@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Ordena los 3 nodos de a: sube el mayor al fondo y, si hace falta, sa.
- */
 static void	sort_three(t_ps *ps)
 {
 	int	max;
@@ -28,9 +25,6 @@ static void	sort_three(t_ps *ps)
 		sa(ps);
 }
 
-/**
- * Ordena 4 nodos: pasa el menor a b, ordena los 3 de a y lo devuelve.
- */
 static void	sort_four(t_ps *ps)
 {
 	int	min;
@@ -44,10 +38,6 @@ static void	sort_four(t_ps *ps)
 	pa(ps);
 }
 
-/**
- * Ordena 5 nodos: pasa los indices 0 y 1 a b, ordena los 3 de a y los
- * devuelve con el 1 primero.
- */
 static void	sort_five(t_ps *ps)
 {
 	while (find_size(ps->a) > 3)
@@ -64,9 +54,6 @@ static void	sort_five(t_ps *ps)
 	pa(ps);
 }
 
-/**
- * Ordena a cuando tiene 5 nodos o menos, con el minimo de operaciones.
- */
 void	small_sort(t_ps *ps)
 {
 	int	size;

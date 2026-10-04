@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Pasa la cima de stack al final. Solo mueve: no imprime ni comprueba.
- */
 static void	rotate(t_node **stack)
 {
 	t_node	*first;
@@ -29,10 +26,6 @@ static void	rotate(t_node **stack)
 	last->next = first;
 }
 
-/**
- * ra, rb y rr: rotate en a, en b o en ambas, e imprimen la operacion.
- * Si no hay dos nodos, no hacen nada (no gastan operacion).
- */
 void	ra(t_ps *ps)
 {
 	if (has_two(ps->a) == 0)

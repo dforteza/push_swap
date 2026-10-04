@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Pasa la cima de src a la cima de dst. Solo mueve: no imprime ni comprueba.
- */
 static void	push(t_node **src, t_node **dst)
 {
 	t_node	*target;
@@ -25,10 +22,6 @@ static void	push(t_node **src, t_node **dst)
 	*dst = target;
 }
 
-/**
- * pa pasa la cima de b a a; pb, la de a a b.
- * Si la pila de origen esta vacia, no hacen nada.
- */
 void	pa(t_ps *ps)
 {
 	if (ps->b == NULL)

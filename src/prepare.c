@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Pone en cada index su posicion final: cuantos valores hay menores.
- */
 void	normalize(t_node *a)
 {
 	t_node	*tmp_i;
@@ -37,11 +34,6 @@ void	normalize(t_node *a)
 	}
 }
 
-/**
- * Calcula el indice de desorden: pares mal ordenados entre pares totales.
- * @param a pila ya normalizada
- * @return de 0.0 (ordenada) a 1.0 (del reves)
- */
 double	calculate_disorder(t_node *a)
 {
 	t_node	*tmp_i;

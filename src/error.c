@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Libera el array de ft_split y cada una de sus cadenas.
- * @param nums array terminado en NULL
- */
 void	free_split(char **nums)
 {
 	int	i;
@@ -29,10 +25,6 @@ void	free_split(char **nums)
 	free(nums);
 }
 
-/**
- * Libera todos los nodos de una pila.
- * @param stack pila a liberar (puede estar vacia)
- */
 void	free_stack(t_node *stack)
 {
 	t_node	*tmp;
@@ -45,10 +37,6 @@ void	free_stack(t_node *stack)
 	}
 }
 
-/**
- * Libera todo, escribe "Error" por stderr y termina con exit(1).
- * @param nums split pendiente de liberar, o NULL
- */
 void	error_exit(t_ps *ps, char **nums)
 {
 	if (nums)

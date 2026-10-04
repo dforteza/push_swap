@@ -76,10 +76,8 @@ void				free_split(char **nums);
 void				free_stack(t_node *stack);
 void				error_exit(t_ps *ps, char **nums);
 
-// NORMALIZE
+// PREPARE
 void				normalize(t_node *a);
-
-// DISORDER
 double				calculate_disorder(t_node *a);
 
 // STACK

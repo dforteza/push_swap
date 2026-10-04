@@ -12,11 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Busca el mayor index de stack.
- * @param stack pila no vacia
- * @return el index mayor
- */
 int	find_max(t_node *stack)
 {
 	t_node	*current;
@@ -33,11 +28,6 @@ int	find_max(t_node *stack)
 	return (max);
 }
 
-/**
- * Busca el menor index de stack.
- * @param stack pila no vacia
- * @return el index menor
- */
 int	find_min(t_node *stack, int size)
 {
 	t_node	*current;
@@ -57,10 +47,6 @@ int	find_min(t_node *stack, int size)
 	return (min);
 }
 
-/**
- * Busca en que posicion de stack esta el index n.
- * @return la posicion (0 = cima)
- */
 int	find_place(t_node *stack, int n)
 {
 	t_node	*current;
@@ -78,10 +64,6 @@ int	find_place(t_node *stack, int n)
 	return (place);
 }
 
-/**
- * Cuenta los nodos de stack.
- * @return el numero de nodos
- */
 int	find_size(t_node *stack)
 {
 	int		size;

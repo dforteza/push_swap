@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Calcula la raiz cuadrada entera de n, sin math.h.
- * @return el mayor i con i * i <= n
- */
 static int	block_size(int n)
 {
 	int	i;
@@ -26,9 +22,6 @@ static int	block_size(int n)
 	return (i - 1);
 }
 
-/**
- * Ida: vacia a en b por bloques de indices, del menor al mayor.
- */
 static void	push_blocks(t_ps *ps)
 {
 	int	size;
@@ -53,10 +46,6 @@ static void	push_blocks(t_ps *ps)
 	}
 }
 
-/**
- * Ordena a por bloques (--medium, O(n * raiz de n)).
- * Vuelta: saca siempre el mayor de b y lo devuelve a a con pa.
- */
 void	chunk_sort(t_ps *ps)
 {
 	int	max;

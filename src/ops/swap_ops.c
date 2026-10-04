@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Intercambia los dos primeros nodos. Solo mueve: no imprime ni comprueba.
- */
 static void	swap(t_node **stack)
 {
 	t_node	*first;
@@ -27,10 +24,6 @@ static void	swap(t_node **stack)
 	*stack = second;
 }
 
-/**
- * sa, sb y ss: swap en a, en b o en ambas, e imprimen la operacion.
- * Si no hay dos nodos, no hacen nada (no gastan operacion).
- */
 void	sa(t_ps *ps)
 {
 	if (has_two(ps->a) == 0)

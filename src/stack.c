@@ -12,11 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Comprueba si stack esta ordenada de menor stack mayor.
- * @param stack pila stack revisar (puede estar vacia)
- * @return 1 si esta ordenada, 0 si no
- */
 int	is_sorted(t_node *stack)
 {
 	if (!stack)
@@ -30,10 +25,6 @@ int	is_sorted(t_node *stack)
 	return (1);
 }
 
-/**
- * Comprueba si stack tiene al menos dos nodos.
- * @return 1 si los tiene, 0 si no
- */
 int	has_two(t_node *stack)
 {
 	if (stack == NULL || stack->next == NULL)

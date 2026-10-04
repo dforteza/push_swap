@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Traduce ps->used a nombre y complejidad, p. ej. "medium O(n*sqrt(n))".
- */
 static char	*strategy_name(int used)
 {
 	char	*strategy;
@@ -34,9 +31,6 @@ static char	*strategy_name(int used)
 	return (strategy);
 }
 
-/**
- * Imprime el desorden como porcentaje con dos decimales, p. ej. 43.12%.
- */
 static void	print_disorder(double disorder)
 {
 	int	percent;
@@ -55,9 +49,6 @@ static void	print_disorder(double disorder)
 	ft_putstr_fd("%\n", 2);
 }
 
-/**
- * Suma las 11 cantidades de ps->count.
- */
 static int	total_ops(t_ps *ps)
 {
 	int	i;
@@ -73,9 +64,6 @@ static int	total_ops(t_ps *ps)
 	return (total);
 }
 
-/**
- * Imprime cuantas veces se ha usado cada una de las 11 operaciones.
- */
 static void	print_ops(t_ps *ps)
 {
 	static char	*names[N_OPS] = {"sa", "sb", "ss", "pa", "pb", "ra", "rb",
@@ -94,9 +82,6 @@ static void	print_ops(t_ps *ps)
 	}
 }
 
-/**
- * Imprime por stderr las metricas del modo --bench tras ordenar.
- */
 void	print_bench(t_ps *ps)
 {
 	print_disorder(ps->disorder);
