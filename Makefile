@@ -4,6 +4,9 @@ CC		= cc
 CFLAGS	= -Wall -Wextra -Werror
 RM		= rm -f
 
+GREEN	= \033[1;32m
+RESET	= \033[0m
+
 LIBFT	= libft/libft.a
 
 SRCS  = src/main.c src/flags.c src/parse.c src/error.c \
@@ -16,7 +19,15 @@ SRCS  = src/main.c src/flags.c src/parse.c src/error.c \
 
 OBJS	= $(SRCS:.c=.o)
 
-all : $(NAME)
+all : banner $(NAME)
+
+banner :
+	@printf "$(GREEN)██████╗ ██╗   ██╗███████╗██╗  ██╗        ███████╗██╗    ██╗ █████╗ ██████╗ $(RESET)\n"
+	@printf "$(GREEN)██╔══██╗██║   ██║██╔════╝██║  ██║        ██╔════╝██║    ██║██╔══██╗██╔══██╗$(RESET)\n"
+	@printf "$(GREEN)██████╔╝██║   ██║███████╗███████║        ███████╗██║ █╗ ██║███████║██████╔╝$(RESET)\n"
+	@printf "$(GREEN)██╔═══╝ ██║   ██║╚════██║██╔══██║        ╚════██║██║███╗██║██╔══██║██╔═══╝ $(RESET)\n"
+	@printf "$(GREEN)██║     ╚██████╔╝███████║██║  ██║███████╗███████║╚███╔███╔╝██║  ██║██║     $(RESET)\n"
+	@printf "$(GREEN)╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝     $(RESET)\n"
 
 $(NAME) : $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
@@ -37,4 +48,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all banner clean fclean re
