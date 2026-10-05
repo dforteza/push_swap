@@ -141,3 +141,4 @@ Traditional, digital and collaborative resources were employed in order to ensur
 
 ### Disclosure on the use of AI
 
+AI was used as a tutor to understand the underlying concepts and as an assistant to evaluate candidate sorting algorithms and choose the ones best suited to the subject's requirements. It also helped depurate and refactor parts of the code, all of which we reviewed and can explain.
