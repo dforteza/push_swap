@@ -12,9 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Apunta en ps->used el algoritmo que toca segun n, flag y desorden.
- */
 static void	choose_strategy(t_ps *ps)
 {
 	if (find_size(ps->a) <= 5)
@@ -33,9 +30,6 @@ static void	choose_strategy(t_ps *ps)
 	}
 }
 
-/**
- * Elige la estrategia y ejecuta el algoritmo correspondiente.
- */
 static void	run_strategy(t_ps *ps)
 {
 	if (ps->used == SMALL)
@@ -50,10 +44,6 @@ static void	run_strategy(t_ps *ps)
 		quick_sort(ps);
 }
 
-/**
- * Flags, numeros, normalizar, desorden, ordenar y liberar.
- * @return (0); los errores salen antes por error_exit
- */
 int	main(int ac, char **av)
 {
 	t_ps	ps;

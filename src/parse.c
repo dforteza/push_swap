@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Comprueba que str sea un entero: signo opcional y solo digitos.
- * @return 1 si es valido, 0 si no
- */
 static int	is_valid(char *str)
 {
 	int	i;
@@ -34,11 +30,6 @@ static int	is_valid(char *str)
 	return (1);
 }
 
-/**
- * Convierte str a long; para al pasar de INT_MAX para no desbordar.
- * @param str cadena ya validada por is_valid
- * @return el numero, o uno fuera del rango int si era demasiado grande
- */
 static long	ft_atol(char *str)
 {
 	int		i;
@@ -64,10 +55,6 @@ static long	ft_atol(char *str)
 	return (res * sign);
 }
 
-/**
- * Comprueba si n ya esta en la pila a.
- * @return 1 si esta, 0 si no
- */
 static int	is_duplicate(t_node *a, long n)
 {
 	if (a == NULL)
@@ -81,10 +68,6 @@ static int	is_duplicate(t_node *a, long n)
 	return (0);
 }
 
-/**
- * Crea un nodo con value = n y lo anade al final de a.
- * @param nums split actual, para liberarlo si falla malloc
- */
 static void	add_node(t_ps *ps, char **nums, long n)
 {
 	t_node	*new;
@@ -107,10 +90,6 @@ static void	add_node(t_ps *ps, char **nums, long n)
 	}
 }
 
-/**
- * Valida cada numero de av y construye la pila a; si falla, error_exit.
- * @param i posicion del primer numero en av
- */
 void	parse_numbers(t_ps *ps, int ac, char **av, int i)
 {
 	char	**nums;

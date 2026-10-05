@@ -12,12 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Compara arg con flag incluyendo el '\0': "--simplex" no vale.
- * @param arg  argumento de av
- * @param flag flag esperado, p. ej. "--simple"
- * @return 1 si son iguales, 0 si no
- */
 static int	is_flag(char *arg, char *flag)
 {
 	int	len;
@@ -28,11 +22,6 @@ static int	is_flag(char *arg, char *flag)
 	return (1);
 }
 
-/**
- * Guarda la estrategia en ps, si no habia otra ya.
- * @param strategy SIMPLE, MEDIUM, COMPLEX o ADAPTIVE
- * @return 0 si va bien, -1 si ya habia una estrategia
- */
 static int	set_strategy(t_ps *ps, int strategy)
 {
 	if (ps->strategy != NONE)
@@ -41,11 +30,6 @@ static int	set_strategy(t_ps *ps, int strategy)
 	return (0);
 }
 
-/**
- * Identifica el flag y lo aplica a ps.
- * @param arg argumento que empieza por "--"
- * @return 0 si va bien, -1 si no existe o esta repetido
- */
 static int	read_flag(t_ps *ps, char *arg)
 {
 	if (is_flag(arg, "--simple"))
@@ -66,10 +50,6 @@ static int	read_flag(t_ps *ps, char *arg)
 	return (-1);
 }
 
-/**
- * Lee los flags del principio de av; sin estrategia, usa ADAPTIVE.
- * @return posicion del primer numero en av, o -1 si hay error
- */
 int	parse_flags(t_ps *ps, int ac, char **av)
 {
 	int	i;

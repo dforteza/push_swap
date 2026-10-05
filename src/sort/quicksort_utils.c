@@ -12,11 +12,6 @@
 
 #include "push_swap.h"
 
-/**
- * Crea un tramo con su pila, su zona y su tamano.
- * @param stack 'a' o 'b'
- * @param pos   TOP o BOTTOM
- */
 t_part	new_part(char stack, int pos, int size)
 {
 	t_part	new;
@@ -27,11 +22,6 @@ t_part	new_part(char stack, int pos, int size)
 	return (new);
 }
 
-/**
- * Busca el primer nodo del tramo dentro de su pila.
- * @return la cabeza si el tramo es TOP; si es BOTTOM, el nodo tras saltar
- *         (tamano de la pila - tamano del tramo)
- */
 t_node	*part_start(t_ps *ps, t_part part)
 {
 	t_node	*start;
@@ -53,9 +43,6 @@ t_node	*part_start(t_ps *ps, t_part part)
 	return (start);
 }
 
-/**
- * Sube a la cima el siguiente numero del tramo (rra/rrb si es BOTTOM).
- */
 void	bring_node_to_top(t_ps *ps, t_part part)
 {
 	if (part.pos == BOTTOM)
@@ -67,10 +54,6 @@ void	bring_node_to_top(t_ps *ps, t_part part)
 	}
 }
 
-/**
- * Lleva el numero de la cima de src a la zona dest.
- * Si cambia de pila hace pa/pb; si dest es BOTTOM, ademas ra/rb.
- */
 void	send_to_dest(t_ps *ps, t_part src, t_part dest)
 {
 	if (dest.stack != src.stack)
@@ -89,12 +72,6 @@ void	send_to_dest(t_ps *ps, t_part src, t_part dest)
 	}
 }
 
-/**
- * Rellena la zona y el tamano de cada grupo segun donde este src.
- * Grandes a A, pequenos a B y medianos a la zona que queda libre.
- * @param n    tamano de un tercio del tramo
- * @param dest 0 = grandes, 1 = medianos, 2 = pequenos
- */
 void	set_dests(t_part src, int n, t_part dest[3])
 {
 	dest[0].stack = 'a';
